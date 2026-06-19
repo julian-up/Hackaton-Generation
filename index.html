@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TrendyShop · Boutique femenina</title>
 
-    <!-- Tipografías de marca. POR QUÉ con preconnect: acelera la conexión al
-       servidor de fuentes antes de descargar el CSS de @font-face. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,10 +12,8 @@
       rel="stylesheet"
     />
 
-    <!-- Estilos globales (tokens + componentes). -->
     <link rel="stylesheet" href="./css/style.css" />
 
-    <!-- Si el usuario tiene JS desactivado, mostramos todo (sin animación). -->
     <noscript
       ><style>
         .reveal {
@@ -28,10 +24,8 @@
     >
   </head>
   <body>
-    <!-- ═══ NAV (compartida) ═══ -->
     <header class="nav">
       <a href="index.html" class="logo">Trendy<em>Shop</em></a>
-      <!-- Botón hamburguesa: solo visible en móvil, abre/cierra el menú -->
       <button class="nav__toggle" id="navToggle" aria-label="Abrir menú">
         <span></span><span></span><span></span>
       </button>
@@ -40,8 +34,6 @@
         <a href="./quienes-somos/index.html">Quiénes Somos</a>
         <a href="./contactanos/index.html">Contacto</a>
 
-        <!-- Mini-carrito: al pasar el cursor se despliega un panel horizontal
-             con los productos agregados y un botón para ir a la bolsa completa. -->
         <div class="bag-wrap">
           <a href="./carrito/index.html" class="bag">
             Carrito <span class="bag__count">0</span>
@@ -58,7 +50,6 @@
 
     <main>
       <section class="hero-a">
-        <!-- Capa de profundidad: formas difuminadas que flotan despacio. -->
         <div class="blob blob--1"></div>
         <div class="blob blob--2"></div>
 
@@ -78,7 +69,6 @@
             </div>
           </div>
 
-          <!-- Tarjeta flotante: data-tilt activa la inclinación 3D con el cursor. -->
           <div class="hero-a__media">
             <div class="float-card" data-tilt>
               <div class="float-card__img">
@@ -95,17 +85,14 @@
         <div class="head-row reveal">
           <div>
             <div class="eyebrow">Selección destacada</div>
-            <!-- BRILLO tras "deseado": .glow dibuja un resplandor radial detrás. -->
             <h2 class="section__title" style="margin-top: var(--s2)">
               Lo más <span class="glow"><span>deseado</span></span>
             </h2>
           </div>
           <span class="hint">desliza →</span>
         </div>
-        <!-- Las tarjetas se inyectan desde JS (datos centralizados → escalable). -->
         <div class="rail reveal" id="rail"></div>
 
-        <!-- Editorial split -->
         <div class="editorial reveal">
           <div class="editorial__img">
             <img src="./img/prenda3.png" alt="Abrigo largo Dune — pieza editorial" />
@@ -136,7 +123,6 @@
       </section>
     </main>
 
-    <!-- ═══ NOSOTRAS · fundadoras ═══ -->
     <section id="nosotras" class="team">
       <div class="wrap">
         <div class="team__head">
@@ -175,7 +161,6 @@
       </div>
     </section>
 
-    <!-- ═══ FOOTER (compartido) ═══ -->
     <footer class="footer">
       <div class="footer__top">
         <div>
@@ -207,7 +192,6 @@
       </div>
     </footer>
 
-    <!-- ═══ MODAL de producto ═══ -->
     <div class="modal" id="modal" hidden>
       <div class="modal__card">
         <button class="modal__close" id="modalClose" aria-label="Cerrar">×</button>

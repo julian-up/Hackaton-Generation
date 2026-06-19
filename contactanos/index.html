@@ -1,10 +1,3 @@
-<!-- ════════════════════════════════════════════════════════════════════════
-  TrendyShop · Página de Contacto
-  ────────────────────────────────────────────────────────────────────────
-  Formulario de contacto funcional con envío real vía Formspree.
-  Panel lateral con info de contacto (email, teléfono, ubicación, horario).
-  JS: ../js/contactanos.js (envío del form) | ../js/cart.js (badge)
-  ════════════════════════════════════════════════════════════════════════ -->
 <!doctype html>
 <html lang="es">
   <head>
@@ -20,7 +13,6 @@
     <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
-    <!-- ═══ NAV ═══ -->
     <header class="nav">
       <a href="../index.html" class="logo">Trendy<em>Shop</em></a>
       <button class="nav__toggle" id="navToggle" aria-label="Abrir menú">
@@ -44,7 +36,6 @@
       </nav>
     </header>
 
-    <!-- ═══ HERO ═══ -->
     <section class="contact-hero">
       <div class="wrap">
         <div class="eyebrow">Hablemos</div>
@@ -58,10 +49,6 @@
       </div>
     </section>
 
-    <!-- ═══ FORMULARIO + INFO DE CONTACTO ═══ -->
-    <!-- Layout flex: formulario a la izquierda, info a la derecha.
-         El formulario envía los datos vía POST a Formspree (servicio externo).
-         contactanos.js captura el submit, envía con fetch y muestra el estado. -->
     <section class="section">
       <div class="wrap">
         <div class="contact-layout">
@@ -110,7 +97,6 @@
       </div>
     </section>
 
-    <!-- ═══ FOOTER ═══ -->
     <footer class="footer">
       <div class="footer__top">
         <div>

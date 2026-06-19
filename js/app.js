@@ -79,7 +79,7 @@ const manejarClicEnCarrito = (evento) => {
       carrito.eliminarProducto(id);
       mostrarToast("Producto eliminado del carrito", "info");
     } else {
-      return; // Clic en un botón no reconocido; no hacer nada.
+      return;
     }
  
     renderCarrito(carrito);

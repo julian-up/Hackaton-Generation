@@ -1,19 +1,7 @@
-// ════════════════════════════════════════════════════════════════════════
-// main.js — Lógica de la página principal (index.html)
-// ────────────────────────────────────────────────────────────────────────
-// Responsabilidades:
-//   1. Renderizar tarjetas del carrusel con imágenes reales desde data.js
-//   2. Manejar el modal de detalle (imagen, tallas, composición)
-//   3. Agregar productos al carrito con talla seleccionada (cart.js)
-//   4. Mostrar toast de confirmación al agregar
-//   5. Sincronizar el badge del carrito con localStorage
-// ════════════════════════════════════════════════════════════════════════
 import { $, $$, initTilt, initReveal, initNavToggle } from "./ux.js";
 import { PRODUCTS } from "./data.js";
 import { addItem, updateBadges } from "./cart.js";
 
-// ── Carrusel de productos ────────────────────────────────────────────────
-// Genera el HTML de cada tarjeta con su imagen real.
 function renderCard(p, i) {
   return (
     '<article class="card" data-tilt data-i="' + i + '">' +
@@ -32,22 +20,17 @@ function renderCard(p, i) {
   );
 }
 
-// Inyecta las tarjetas en el riel del carrusel.
 $("#rail").innerHTML = PRODUCTS.map(renderCard).join("");
 
-// Inicializa los efectos de tilt 3D, aparición al scroll y menú hamburguesa.
 initTilt();
 initReveal();
 initNavToggle();
 
-// Actualiza los badges del carrito al cargar la página.
 updateBadges();
 
-// ── Modal de producto ────────────────────────────────────────────────────
 const modal = $("#modal");
 let currentProduct = null;
 
-// Abre el modal con la info y la imagen del producto seleccionado.
 function openModal(p) {
   currentProduct = p;
   $("#mImg").src = "./img/" + p.image;
@@ -58,7 +41,6 @@ function openModal(p) {
   $("#mDesc").textContent = p.desc;
   $("#mFabric").textContent = "Composición · " + p.fabric;
 
-  // Genera botones de talla y los inyecta.
   $("#mSizes").innerHTML = p.sizes
     .map((s) => '<button class="size">' + s + "</button>")
     .join("");
@@ -71,20 +53,17 @@ function closeModal() {
   currentProduct = null;
 }
 
-// Delegación de eventos: un clic en cualquier tarjeta del riel abre su modal.
 $("#rail").addEventListener("click", (e) => {
   const card = e.target.closest("[data-i]");
   if (card) openModal(PRODUCTS[+card.getAttribute("data-i")]);
 });
 
-// Selección de talla: resalta la talla elegida.
 $("#mSizes").addEventListener("click", (e) => {
   if (!e.target.classList.contains("size")) return;
   $$(".size", modal).forEach((s) => s.classList.remove("is-active"));
   e.target.classList.add("is-active");
 });
 
-// Botón "Añadir a la bolsa": agrega al carrito con la talla seleccionada.
 $("#btnAddToBag").addEventListener("click", () => {
   if (!currentProduct) return;
   const sizeBtn = $(".size.is-active", modal);
@@ -103,7 +82,6 @@ $("#btnAddToBag").addEventListener("click", () => {
   showToast(currentProduct.name + " (talla " + size + ") añadido a la bolsa");
 });
 
-// Cerrar modal: botón X, clic en fondo, tecla Escape.
 $("#modalClose").addEventListener("click", closeModal);
 modal.addEventListener("click", (e) => {
   if (e.target === modal) closeModal();
@@ -113,13 +91,11 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeModal();
 });
 
-// "Ver en el catálogo" cierra el modal y navega a la página del catálogo.
 $("#goCatalogo").addEventListener("click", () => {
   closeModal();
   window.location.href = "./catalogo/index.html";
 });
 
-// ── Toast de notificación ────────────────────────────────────────────────
 function showToast(msg) {
   const t = document.createElement("div");
   t.className = "toast-msg";

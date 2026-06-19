@@ -1,10 +1,3 @@
-<!-- ════════════════════════════════════════════════════════════════════════
-  TrendyShop · Página del Carrito (Bolsa de compras)
-  ────────────────────────────────────────────────────────────────────────
-  Lee los productos del localStorage (clave: trendyshop_cart) y los muestra
-  con imagen, nombre, talla, precio y controles de cantidad.
-  JS: ../js/carrito-page.js | Carrito: ../js/cart.js
-  ════════════════════════════════════════════════════════════════════════ -->
 <!doctype html>
 <html lang="es">
   <head>
@@ -20,7 +13,6 @@
     <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
-    <!-- ═══ NAV ═══ -->
     <header class="nav">
       <a href="../index.html" class="logo">Trendy<em>Shop</em></a>
       <button class="nav__toggle" id="navToggle" aria-label="Abrir menú">
@@ -44,7 +36,6 @@
       </nav>
     </header>
 
-    <!-- ═══ CARRITO ═══ -->
     <section class="section">
       <div class="wrap">
         <div class="eyebrow">Tu selección</div>
@@ -52,17 +43,13 @@
           Bolsa de compras
         </h1>
 
-        <!-- Contenedor de ítems: carrito-page.js inyecta aquí las tarjetas
-             de cada producto con imagen, talla, precio y controles +/− -->
         <div id="cart-items"></div>
 
-        <!-- Mensaje visible cuando no hay productos en el carrito -->
         <div id="cart-empty" class="cart-empty" hidden>
           <p>Tu bolsa está vacía.</p>
           <a href="../catalogo/index.html" class="btn btn--solid">Explorar catálogo</a>
         </div>
 
-        <!-- Resumen y acciones -->
         <div id="cart-summary" class="cart-summary" hidden>
           <div class="cart-summary__row">
             <span>Total</span>
@@ -76,7 +63,6 @@
       </div>
     </section>
 
-    <!-- ═══ FOOTER ═══ -->
     <footer class="footer">
       <div class="footer__top">
         <div>

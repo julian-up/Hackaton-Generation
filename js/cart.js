@@ -1,12 +1,3 @@
-// ════════════════════════════════════════════════════════════════════════
-// cart.js — Carrito de compras con persistencia en localStorage
-// ────────────────────────────────────────────────────────────────────────
-// Módulo unificado que todas las páginas importan para:
-//   - Agregar/eliminar productos con talla y cantidad
-//   - Persistir el estado en localStorage (clave: trendyshop_cart)
-//   - Sincronizar el badge del carrito en la barra de navegación
-// Estructura de cada ítem: { id, name, price, numPrice, image, size, quantity }
-// ════════════════════════════════════════════════════════════════════════
 const KEY = "trendyshop_cart";
 
 function load() {
@@ -21,7 +12,6 @@ function save(items) {
   localStorage.setItem(KEY, JSON.stringify(items));
 }
 
-// Agrega un producto al carrito. Si ya existe con la misma talla, incrementa cantidad.
 export function addItem(product) {
   const items = load();
   const match = items.find(
@@ -36,7 +26,6 @@ export function addItem(product) {
   updateBadges();
 }
 
-// Elimina un ítem del carrito por su posición en el arreglo.
 export function removeItem(index) {
   const items = load();
   items.splice(index, 1);
@@ -44,7 +33,6 @@ export function removeItem(index) {
   updateBadges();
 }
 
-// Cambia la cantidad de un ítem. Si llega a 0, lo elimina.
 export function updateQuantity(index, qty) {
   const items = load();
   if (qty <= 0) {
@@ -68,7 +56,6 @@ export function getTotalPrice() {
   return load().reduce((s, i) => s + i.numPrice * i.quantity, 0);
 }
 
-// Formatea un número como precio colombiano: $89.900
 export function formatPrice(n) {
   return "$" + n.toLocaleString("es-CO");
 }
@@ -78,8 +65,6 @@ export function clearCart() {
   updateBadges();
 }
 
-// Actualiza todos los badges de carrito visibles en la página actual
-// y renderiza el contenido del mini-carrito desplegable.
 export function updateBadges() {
   const count = getTotalItems();
   document
@@ -91,9 +76,6 @@ export function updateBadges() {
   renderMiniCart();
 }
 
-// Renderiza el mini-carrito desplegable que aparece al pasar el cursor
-// sobre el botón "Carrito" de la barra de navegación.
-// Muestra las imágenes de los productos en fila horizontal.
 function renderMiniCart() {
   const container = document.getElementById("mini-cart-items");
   if (!container) return;
@@ -104,7 +86,6 @@ function renderMiniCart() {
     return;
   }
 
-  // Detecta si estamos en la raíz o en una subcarpeta para armar la ruta.
   const depth = window.location.pathname.includes("/carrito/") ||
                 window.location.pathname.includes("/catalogo/") ||
                 window.location.pathname.includes("/quienes-somos/") ||

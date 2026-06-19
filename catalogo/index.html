@@ -1,13 +1,3 @@
-<!-- ════════════════════════════════════════════════════════════════════════
-  TrendyShop · Página de Catálogo
-  ────────────────────────────────────────────────────────────────────────
-  Muestra el catálogo completo de productos con:
-    - Filtros por categoría (Todo, Vestidos, Blusas, Abrigos, Faldas, Pantalones)
-    - Grid responsivo de tarjetas de producto con imagen real
-    - Modal de detalle con selección de talla y añadir al carrito
-    - Badge del carrito sincronizado con localStorage
-  JS: ../js/catalogo.js | Datos: ../js/data.js | Carrito: ../js/cart.js
-  ════════════════════════════════════════════════════════════════════════ -->
 <!doctype html>
 <html lang="es">
   <head>
@@ -15,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TrendyShop · Catálogo</title>
 
-    <!-- Tipografías de marca: Quicksand (cuerpo) + Noto Serif Display (titulares) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -23,14 +12,11 @@
       rel="stylesheet"
     />
 
-    <!-- Estilos globales del proyecto -->
     <link rel="stylesheet" href="../css/style.css" />
 
-    <!-- Fallback: si JS está desactivado, mostramos todo sin animación -->
     <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
   </head>
   <body>
-    <!-- ═══ NAV — Barra de navegación compartida con todas las páginas ═══ -->
     <header class="nav">
       <a href="../index.html" class="logo">Trendy<em>Shop</em></a>
       <button class="nav__toggle" id="navToggle" aria-label="Abrir menú">
@@ -40,7 +26,6 @@
         <a href="../catalogo/index.html">Catálogo</a>
         <a href="../quienes-somos/index.html">Quiénes Somos</a>
         <a href="../contactanos/index.html">Contacto</a>
-        <!-- Badge .bag__count se actualiza desde JS (cart.js → updateBadges) -->
         <div class="bag-wrap">
           <a href="../carrito/index.html" class="bag">
             Carrito <span class="bag__count">0</span>
@@ -55,7 +40,6 @@
       </nav>
     </header>
 
-    <!-- ═══ HERO — Encabezado visual con fondo vino ═══ -->
     <section class="cat-hero">
       <div class="wrap">
         <div class="eyebrow">Nuestra selección</div>
@@ -69,10 +53,6 @@
       </div>
     </section>
 
-    <!-- ═══ FILTROS + GRID DE PRODUCTOS ═══ -->
-    <!-- Los botones de filtro usan data-cat para indicar la categoría.
-         El contenedor #productos se llena dinámicamente desde catalogo.js.
-         Clic en tarjeta → abre modal. Clic en "Añadir" → agrega rápido. -->
     <section class="section">
       <div class="wrap">
         <div class="cat-filters reveal" id="filtros">
@@ -87,7 +67,6 @@
       </div>
     </section>
 
-    <!-- ═══ FOOTER ═══ -->
     <footer class="footer">
       <div class="footer__top">
         <div>
@@ -112,9 +91,6 @@
       <div class="footer__legal">© 2026 TrendyShop · Todos los derechos reservados</div>
     </footer>
 
-    <!-- ═══ MODAL de detalle de producto (oculto por defecto) ═══ -->
-    <!-- Al hacer clic en una tarjeta del catálogo, este modal muestra
-         imagen, descripción, composición, tallas y botón de añadir al carrito. -->
     <div class="modal" id="cat-modal" hidden>
       <div class="modal__card">
         <button class="modal__close" id="catModalClose" aria-label="Cerrar">×</button>

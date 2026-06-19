@@ -1,49 +1,22 @@
-/* ════════════════════════════════════════════════════════════════════════
-   TrendyShop · Estilos globales
-   ────────────────────────────────────────────────────────────────────────
-   ESTRUCTURA del archivo (de lo general a lo concreto):
-     1. Tokens de diseño (:root)        → fuente única de verdad
-     2. Reset y base
-     3. Utilidades (botones, eyebrow, reveal)
-     4. Componentes (nav, hero, carrusel, editorial, fundadoras, footer)
-     5. Modal y switcher
-     6. Animaciones (@keyframes)
-     7. Ajustes responsive
-
-   PRINCIPIO: todo color/tamaño/espacio sale de un token. Cambiar la marca =
-   cambiar :root, no perseguir valores por todo el archivo. Eso lo hace
-   ESCALABLE. Los tamaños usan clamp() para ser RESPONSIVOS sin breakpoints.
-   ════════════════════════════════════════════════════════════════════════ */
-
 :root {
-  /* — Paleta de marca (entregada) + neutros derivados —
-     POR QUÉ derivar --cream e --ink: necesitamos un fondo más luminoso que el
-     linen y un "negro" cálido para texto, sin salir de la familia terrosa. */
-  --rojo: #4d0f14; /* vino · acento principal y fondos dramáticos        */
-  --rozy: #c7a49e; /* rosa empolvado · acento suave                      */
-  --pale-oak: #d9c3ac; /* arena · placeholders e ilustración                 */
-  --linen: #eee4da; /* lino · fondo base                                  */
-  --cream: #f7f2eb; /* crema · fondos amplios (más claro que linen)       */
-  --ink: #2a1316; /* tinta cálida · texto sobre claro (no negro puro)   */
+  --rojo: #4d0f14;
+  --rozy: #c7a49e;
+  --pale-oak: #d9c3ac;
+  --linen: #eee4da;
+  --cream: #f7f2eb;
+  --ink: #2a1316;
   --rojo-70: rgba(77, 15, 20, 0.7);
   --linen-12: rgba(238, 228, 218, 0.12);
 
-  /* — Tipografía —
-     POR QUÉ pareja serif + sans: el contraste da el aire "boutique premium".
-     Serif editorial para titulares; sans amable para lectura larga. */
   --serif: "Noto Serif Display", Georgia, serif;
   --sans: "Quicksand", system-ui, sans-serif;
 
-  /* — Escala de tipo FLUIDA: clamp(mínimo, preferido-en-vw, máximo) —
-     POR QUÉ clamp y no media-queries: el tamaño interpola con el ancho de la
-     ventana → crecimiento continuo, sin saltos ni breakpoints que mantener. */
   --t-hero: clamp(2.6rem, 7vw, 6rem);
   --t-h2: clamp(1.8rem, 4vw, 3.2rem);
   --t-h3: clamp(1.15rem, 2vw, 1.6rem);
   --t-body: clamp(0.98rem, 1.1vw, 1.1rem);
   --t-eyebrow: clamp(0.7rem, 1vw, 0.78rem);
 
-  /* — Espaciado en escala (ritmo vertical coherente) — */
   --s1: 0.5rem;
   --s2: 1rem;
   --s3: 1.5rem;
@@ -52,20 +25,15 @@
   --s8: 5rem;
   --s12: 8rem;
 
-  /* — Radios y sombras CÁLIDAS (tintadas de vino, no gris) —
-     POR QUÉ tintar la sombra: una sombra gris sobre paleta terrosa se ve
-     "sucia"; tintarla de vino la integra y eleva el acabado premium. */
   --r: 16px;
   --r-lg: 28px;
   --r-pill: 999px;
   --shadow-sm: 0 6px 18px -10px rgba(77, 15, 20, 0.4);
   --shadow: 0 30px 60px -28px rgba(77, 15, 20, 0.5);
 
-  /* Ancho de lectura máximo del contenido centrado. */
   --maxw: 1240px;
 }
 
-/* ── 2. Reset y base ──────────────────────────────────────────────────── */
 * {
   margin: 0;
   padding: 0;
@@ -73,13 +41,13 @@
 }
 html {
   scroll-behavior: smooth;
-} /* desplazamiento suave a los anclas (#) */
+}
 body {
   font-family: var(--sans);
   background: var(--linen);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden; /* las formas difuminadas no generan scroll lateral */
+  overflow-x: hidden;
 }
 img {
   display: block;
@@ -94,16 +62,12 @@ button {
   cursor: pointer;
 }
 
-/* Contenedor centrado reutilizable. */
 .wrap {
   max-width: var(--maxw);
   margin-inline: auto;
   padding-inline: clamp(1rem, 5vw, 4rem);
 }
 
-/* ── 3. Utilidades ────────────────────────────────────────────────────── */
-
-/* Antetítulo: pequeño, espaciado, en rosa. Marca el inicio de cada bloque. */
 .eyebrow {
   font-weight: 600;
   letter-spacing: 0.28em;
@@ -112,7 +76,6 @@ button {
   color: var(--rozy);
 }
 
-/* Botones: una sola base + modificadores. POR QUÉ: consistencia y reuso. */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -128,7 +91,7 @@ button {
 }
 .btn:hover {
   transform: translateY(-2px);
-} /* micro-interacción al pasar el cursor */
+}
 .btn--solid {
   background: var(--rojo);
   color: var(--linen);
@@ -148,8 +111,6 @@ button {
   color: var(--rojo);
 }
 
-/* Aparición al hacer scroll: estado inicial oculto; .is-visible (vía JS) lo
-   revela. Si JS no corre, un fallback en index.html lo muestra igualmente. */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -162,9 +123,6 @@ button {
   transform: none;
 }
 
-/* Placeholder de imagen: rayas diagonales + leyenda monoespaciada.
-   POR QUÉ así y no un gris plano: comunica "aquí va una foto" de forma
-   intencionada y elegante mientras llega el material real. */
 .ph {
   display: grid;
   place-items: center;
@@ -196,10 +154,6 @@ button {
   color: var(--rojo-70);
 }
 
-/* ── 4. Componentes ───────────────────────────────────────────────────── */
-
-/* NAV: fija con vidrio esmerilado. POR QUÉ sticky + blur: marca y "Bolsa"
-   siempre accesibles sin tapar el contenido. */
 .nav {
   position: sticky;
   top: 0;
@@ -209,9 +163,9 @@ button {
   justify-content: space-between;
   gap: var(--s4);
   padding: var(--s3) clamp(1rem, 5vw, 4rem);
-  background: rgba(238, 228, 218, 0.72);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: var(--linen);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   border-bottom: 1px solid rgba(77, 15, 20, 0.08);
 }
 .logo {
@@ -239,7 +193,6 @@ button {
   opacity: 1;
 }
 
-/* Botón hamburguesa: 3 barras que se animan a X al abrir. Oculto en desktop. */
 .nav__toggle {
   display: none;
   flex-direction: column;
@@ -292,9 +245,6 @@ button {
   font-size: 0.7rem;
 }
 
-/* MINI-CARRITO: panel desplegable al pasar el cursor sobre el botón del carrito.
-   Se muestra horizontalmente con los productos añadidos y un botón para ir
-   a la bolsa completa. Aparece con transición suave. */
 .bag-wrap {
   position: relative;
 }
@@ -379,7 +329,6 @@ button {
   font-size: 0.82rem;
 }
 
-/* HERO A (editorial, fondo vino) ----------------------------------------- */
 .hero-a {
   position: relative;
   overflow: hidden;
@@ -396,8 +345,6 @@ button {
   align-items: center;
   gap: clamp(2rem, 5vw, 5rem);
 }
-/* riseIn anima SOLO el desplazamiento (no la opacidad): si el motor de
-   animaciones se pausa, el contenido del hero sigue visible. */
 .hero-a__text {
   flex: 1 1 380px;
   min-width: 300px;
@@ -428,7 +375,6 @@ button {
   gap: var(--s2);
 }
 
-/* Formas difuminadas de fondo: capa "lejana" que da profundidad al 3D. */
 .blob {
   position: absolute;
   border-radius: 50%;
@@ -455,8 +401,6 @@ button {
   animation: flotaLento 11s ease-in-out infinite;
 }
 
-/* Tarjeta flotante 3D del hero. perspective en el padre + preserve-3d en la
-   tarjeta hacen que las capas internas (badges) "salgan" con translateZ. */
 .hero-a__media {
   flex: 0 1 420px;
   min-width: 280px;
@@ -517,7 +461,6 @@ button {
   box-shadow: var(--shadow);
 }
 
-/* SECCIÓN + encabezado de bloque -------------------------------------- */
 .section {
   padding: clamp(3rem, 6vw, 5rem) 0;
 }
@@ -551,8 +494,6 @@ button {
   color: var(--rojo-70);
 }
 
-/* BRILLO tras una palabra: capa radial difuminada animada, por detrás del
-   texto (z-index 0) y sin capturar clics (pointer-events:none). */
 .glow {
   position: relative;
   display: inline-block;
@@ -578,17 +519,14 @@ button {
   z-index: 1;
 }
 
-/* CARRUSEL: riel con scroll-snap. POR QUÉ scroll-snap: cada tarjeta "encaja"
-   al deslizar → selección cómoda en táctil y en desktop, sin JS de carrusel. */
 .rail {
   display: flex;
   gap: var(--s4);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding: var(--s2) clamp(1rem, 5vw, 4rem) var(--s4);
-  perspective: 1200px; /* contexto 3D para el tilt de las tarjetas */
+  perspective: 1200px;
 }
-/* Scrollbar fino y de marca (la barra por defecto rompe el acabado). */
 .rail {
   scrollbar-width: thin;
   scrollbar-color: var(--rozy) transparent;
@@ -604,7 +542,6 @@ button {
   border-radius: 99px;
 }
 
-/* Tarjeta A: foto arriba + datos abajo, sobre crema. */
 .card {
   flex: 0 0 auto;
   width: clamp(260px, 72vw, 330px);
@@ -671,7 +608,6 @@ button {
   color: var(--rozy);
 }
 
-/* EDITORIAL split ---------------------------------------------------- */
 .editorial {
   max-width: var(--maxw);
   margin: var(--s8) auto 0;
@@ -724,7 +660,6 @@ button {
   opacity: 0.7;
 }
 
-/* FUNDADORAS ------------------------------------------------------------- */
 .team {
   background: var(--rojo);
   color: var(--linen);
@@ -786,9 +721,6 @@ button {
   margin-top: 0.3rem;
 }
 
-/* QUIÉNES SOMOS ---------------------------------------------------------- */
-
-/* Hero del about: misma estética vino del hero principal, centrado. */
 .about-hero {
   position: relative;
   overflow: hidden;
@@ -801,7 +733,6 @@ button {
   margin-inline: auto;
 }
 
-/* Bloques de historia: layout alternado imagen/texto. */
 .story {
   display: flex;
   flex-wrap: wrap;
@@ -844,7 +775,6 @@ button {
   opacity: 0.82;
 }
 
-/* Badges de año en el timeline. */
 .story__badge {
   display: inline-block;
   font-size: 0.72rem;
@@ -868,7 +798,6 @@ button {
   color: #2e7d32;
 }
 
-/* Alertas dentro del timeline. */
 .story__alert {
   padding: var(--s3);
   border-radius: var(--r);
@@ -885,7 +814,6 @@ button {
   border-left: 3px solid #2e7d32;
 }
 
-/* Lista de logros con check marks. */
 .story__list {
   list-style: none;
   padding: 0;
@@ -902,7 +830,6 @@ button {
   margin-right: 0.6rem;
 }
 
-/* Grid de tarjetas de valores. */
 .values-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -942,7 +869,6 @@ button {
   margin-bottom: var(--s2);
 }
 
-/* Sección de estadísticas. */
 .about-stats {
   display: flex;
   flex-wrap: wrap;
@@ -954,13 +880,11 @@ button {
   flex: 0 1 180px;
 }
 
-/* CTA final del about. */
 .about-cta {
   text-align: center;
   padding: clamp(3rem, 6vw, 5rem) 0;
 }
 
-/* FOOTER ----------------------------------------------------------------- */
 .footer {
   background: var(--ink);
   color: var(--linen);
@@ -1015,11 +939,6 @@ button {
   opacity: 0.55;
 }
 
-/* ── 5. Modal ─────────────────────────────────────────────────────────── */
-
-/* MODAL de vista rápida. POR QUÉ modal y no otra página: en una landing
-   mantiene al usuario en contexto; "Ver en el catálogo" lo lleva a #coleccion.
-   Oculto por defecto con [hidden]; JS le quita el atributo para abrir. */
 .modal {
   position: fixed;
   inset: 0;
@@ -1146,8 +1065,6 @@ button {
   flex: 1 1 auto;
 }
 
-/* ── CATÁLOGO ─────────────────────────────────────────────────────────── */
-
 .cat-hero {
   background: var(--rojo);
   color: var(--linen);
@@ -1157,7 +1074,6 @@ button {
   max-width: 52ch;
 }
 
-/* Filtros de categoría: fila de botones pill. */
 .cat-filters {
   display: flex;
   flex-wrap: wrap;
@@ -1185,14 +1101,12 @@ button {
   border-color: var(--rojo);
 }
 
-/* Grid de productos del catálogo. */
 .cat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: var(--s4);
 }
 
-/* Tarjeta de producto del catálogo. */
 .cat-card {
   background: var(--cream);
   border-radius: var(--r-lg);
@@ -1273,8 +1187,6 @@ button {
   padding: 0.6rem 1.4rem;
   font-size: 0.82rem;
 }
-
-/* ── CARRITO ──────────────────────────────────────────────────────────── */
 
 .cart-empty {
   text-align: center;
@@ -1406,8 +1318,6 @@ button {
   margin-bottom: var(--s1);
 }
 
-/* ── CONTACTO ─────────────────────────────────────────────────────────── */
-
 .contact-hero {
   background: var(--rojo);
   color: var(--linen);
@@ -1491,8 +1401,6 @@ button {
   font-weight: 600;
 }
 
-/* ── TOAST ─────────────────────────────────────────────────────────────── */
-
 .toast-msg {
   position: fixed;
   bottom: var(--s4);
@@ -1517,7 +1425,6 @@ button {
   transform: translateX(-50%) translateY(0);
 }
 
-/* ── 6. Animaciones ───────────────────────────────────────────────────── */
 @keyframes flota {
   0%,
   100% {
@@ -1576,7 +1483,6 @@ button {
   }
 }
 
-/* Respeta a quien prefiere menos movimiento (accesibilidad). */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before {
@@ -1589,29 +1495,22 @@ button {
   }
 }
 
-/* ── 7. Ajustes responsive ────────────────────────────────────────────── */
-
-/* Tablet y móvil: menú hamburguesa. El nav__links se convierte en un panel
-   vertical deslizante que se abre al tocar el botón de 3 barras. */
 @media (max-width: 768px) {
   .nav {
     flex-wrap: wrap;
     gap: var(--s2);
   }
 
-  /* Muestra el botón hamburguesa */
   .nav__toggle {
     display: flex;
     order: 2;
   }
 
-  /* El logo queda primero, el botón segundo */
   .logo {
     order: 1;
     flex: 1;
   }
 
-  /* Links se ocultan y se muestran como panel vertical */
   .nav__links {
     order: 3;
     width: 100%;
@@ -1627,7 +1526,6 @@ button {
     padding-top: var(--s2);
   }
 
-  /* Cada link ocupa toda la fila */
   .nav__links > a,
   .nav__links > .bag-wrap {
     padding: 0.75rem 0;
@@ -1635,7 +1533,6 @@ button {
     font-size: 1rem;
   }
 
-  /* Mini-carrito se posiciona relativo en móvil */
   .mini-cart {
     position: fixed;
     top: auto;
@@ -1646,7 +1543,6 @@ button {
     border-radius: var(--r-lg) var(--r-lg) 0 0;
   }
 
-  /* Tarjeta flotante del hero: más pequeña */
   .float-badge {
     left: 8px;
     bottom: 16px;
@@ -1656,14 +1552,12 @@ button {
     top: 16px;
   }
 
-  /* Cart items apilados verticalmente */
   .cart-item__actions {
     flex-wrap: wrap;
     justify-content: flex-end;
   }
 }
 
-/* Móvil pequeño: ajustes finos */
 @media (max-width: 400px) {
   .cat-grid {
     grid-template-columns: 1fr;

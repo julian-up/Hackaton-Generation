@@ -1,13 +1,3 @@
-// ════════════════════════════════════════════════════════════════════════
-// carrito-page.js — Lógica de la página del carrito (bolsa de compras)
-// ────────────────────────────────────────────────────────────────────────
-// Responsabilidades:
-//   1. Leer los ítems del localStorage y renderizarlos con imagen y talla
-//   2. Controles de cantidad (+/−) y botón de eliminar por ítem
-//   3. Calcular y mostrar el total dinámicamente
-//   4. Vaciar la bolsa completa o confirmar la compra
-//   5. Mostrar mensaje de éxito post-compra
-// ════════════════════════════════════════════════════════════════════════
 import {
   getItems,
   removeItem,
@@ -23,7 +13,6 @@ const emptyMsg = document.getElementById("cart-empty");
 const summary = document.getElementById("cart-summary");
 const totalEl = document.getElementById("cart-total");
 
-// Renderiza todos los ítems del carrito en la página.
 function render() {
   const items = getItems();
 
@@ -61,7 +50,6 @@ function render() {
     .join("");
 }
 
-// Delegación de eventos para los botones de cantidad y eliminar.
 container.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-action]");
   if (!btn) return;
@@ -76,13 +64,11 @@ container.addEventListener("click", (e) => {
   render();
 });
 
-// Vaciar bolsa.
 document.getElementById("btn-clear").addEventListener("click", () => {
   clearCart();
   render();
 });
 
-// Confirmar compra: vacía el carrito y muestra mensaje.
 document.getElementById("btn-buy").addEventListener("click", () => {
   const total = formatPrice(getTotalPrice());
   clearCart();
@@ -98,7 +84,6 @@ document.getElementById("btn-buy").addEventListener("click", () => {
   emptyMsg.hidden = true;
 });
 
-// Inicialización.
 import { initNavToggle } from "./ux.js";
 render();
 updateBadges();
