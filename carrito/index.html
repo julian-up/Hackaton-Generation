@@ -1,3 +1,10 @@
+<!-- ════════════════════════════════════════════════════════════════════════
+  TrendyShop · Página del Carrito (Bolsa de compras)
+  ────────────────────────────────────────────────────────────────────────
+  Lee los productos del localStorage (clave: trendyshop_cart) y los muestra
+  con imagen, nombre, talla, precio y controles de cantidad.
+  JS: ../js/carrito-page.js | Carrito: ../js/cart.js
+  ════════════════════════════════════════════════════════════════════════ -->
 <!doctype html>
 <html lang="es">
   <head>
@@ -34,10 +41,11 @@
           Bolsa de compras
         </h1>
 
-        <!-- Items del carrito (se inyectan desde JS) -->
+        <!-- Contenedor de ítems: carrito-page.js inyecta aquí las tarjetas
+             de cada producto con imagen, talla, precio y controles +/− -->
         <div id="cart-items"></div>
 
-        <!-- Mensaje cuando el carrito está vacío -->
+        <!-- Mensaje visible cuando no hay productos en el carrito -->
         <div id="cart-empty" class="cart-empty" hidden>
           <p>Tu bolsa está vacía.</p>
           <a href="../catalogo/index.html" class="btn btn--solid">Explorar catálogo</a>

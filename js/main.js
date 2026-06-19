@@ -1,5 +1,13 @@
-// Lógica de la página principal (index.html).
-// Renderiza las tarjetas del carrusel, maneja el modal y conecta con el carrito.
+// ════════════════════════════════════════════════════════════════════════
+// main.js — Lógica de la página principal (index.html)
+// ────────────────────────────────────────────────────────────────────────
+// Responsabilidades:
+//   1. Renderizar tarjetas del carrusel con imágenes reales desde data.js
+//   2. Manejar el modal de detalle (imagen, tallas, composición)
+//   3. Agregar productos al carrito con talla seleccionada (cart.js)
+//   4. Mostrar toast de confirmación al agregar
+//   5. Sincronizar el badge del carrito con localStorage
+// ════════════════════════════════════════════════════════════════════════
 import { $, $$, initTilt, initReveal } from "./ux.js";
 import { PRODUCTS } from "./data.js";
 import { addItem, updateBadges } from "./cart.js";

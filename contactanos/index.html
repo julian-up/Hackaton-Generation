@@ -1,3 +1,10 @@
+<!-- ════════════════════════════════════════════════════════════════════════
+  TrendyShop · Página de Contacto
+  ────────────────────────────────────────────────────────────────────────
+  Formulario de contacto funcional con envío real vía Formspree.
+  Panel lateral con info de contacto (email, teléfono, ubicación, horario).
+  JS: ../js/contactanos.js (envío del form) | ../js/cart.js (badge)
+  ════════════════════════════════════════════════════════════════════════ -->
 <!doctype html>
 <html lang="es">
   <head>
@@ -40,7 +47,10 @@
       </div>
     </section>
 
-    <!-- ═══ FORMULARIO ═══ -->
+    <!-- ═══ FORMULARIO + INFO DE CONTACTO ═══ -->
+    <!-- Layout flex: formulario a la izquierda, info a la derecha.
+         El formulario envía los datos vía POST a Formspree (servicio externo).
+         contactanos.js captura el submit, envía con fetch y muestra el estado. -->
     <section class="section">
       <div class="wrap">
         <div class="contact-layout">

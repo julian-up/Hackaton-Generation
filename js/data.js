@@ -1,5 +1,11 @@
-// Catálogo unificado de productos.
+// ════════════════════════════════════════════════════════════════════════
+// data.js — Catálogo unificado de productos
+// ────────────────────────────────────────────────────────────────────────
+// Fuente de verdad para todos los productos de la tienda.
 // Todas las páginas (index, catálogo, carrito) importan de aquí.
+// Cada producto tiene: id, nombre, precio (texto + numérico), etiqueta,
+// imagen (en /img), categoría, composición de tela, tallas y descripción.
+// ════════════════════════════════════════════════════════════════════════
 export const PRODUCTS = [
   {
     id: 1,

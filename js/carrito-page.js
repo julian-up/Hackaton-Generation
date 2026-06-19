@@ -1,5 +1,13 @@
-// Lógica de la página del carrito.
-// Lee los ítems del localStorage, los muestra y permite modificarlos.
+// ════════════════════════════════════════════════════════════════════════
+// carrito-page.js — Lógica de la página del carrito (bolsa de compras)
+// ────────────────────────────────────────────────────────────────────────
+// Responsabilidades:
+//   1. Leer los ítems del localStorage y renderizarlos con imagen y talla
+//   2. Controles de cantidad (+/−) y botón de eliminar por ítem
+//   3. Calcular y mostrar el total dinámicamente
+//   4. Vaciar la bolsa completa o confirmar la compra
+//   5. Mostrar mensaje de éxito post-compra
+// ════════════════════════════════════════════════════════════════════════
 import {
   getItems,
   removeItem,

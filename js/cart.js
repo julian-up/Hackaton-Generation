@@ -1,5 +1,12 @@
-// Módulo de carrito unificado con persistencia en localStorage.
-// Todas las páginas importan de aquí para mantener un carrito consistente.
+// ════════════════════════════════════════════════════════════════════════
+// cart.js — Carrito de compras con persistencia en localStorage
+// ────────────────────────────────────────────────────────────────────────
+// Módulo unificado que todas las páginas importan para:
+//   - Agregar/eliminar productos con talla y cantidad
+//   - Persistir el estado en localStorage (clave: trendyshop_cart)
+//   - Sincronizar el badge del carrito en la barra de navegación
+// Estructura de cada ítem: { id, name, price, numPrice, image, size, quantity }
+// ════════════════════════════════════════════════════════════════════════
 const KEY = "trendyshop_cart";
 
 function load() {

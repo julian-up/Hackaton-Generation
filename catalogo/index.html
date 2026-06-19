@@ -1,33 +1,50 @@
+<!-- ════════════════════════════════════════════════════════════════════════
+  TrendyShop · Página de Catálogo
+  ────────────────────────────────────────────────────────────────────────
+  Muestra el catálogo completo de productos con:
+    - Filtros por categoría (Todo, Vestidos, Blusas, Abrigos, Faldas, Pantalones)
+    - Grid responsivo de tarjetas de producto con imagen real
+    - Modal de detalle con selección de talla y añadir al carrito
+    - Badge del carrito sincronizado con localStorage
+  JS: ../js/catalogo.js | Datos: ../js/data.js | Carrito: ../js/cart.js
+  ════════════════════════════════════════════════════════════════════════ -->
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TrendyShop · Catálogo</title>
+
+    <!-- Tipografías de marca: Quicksand (cuerpo) + Noto Serif Display (titulares) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Noto+Serif+Display:ital,opsz,wght@0,10..72,400;0,10..72,500;1,10..72,500&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Estilos globales del proyecto -->
     <link rel="stylesheet" href="../css/style.css" />
+
+    <!-- Fallback: si JS está desactivado, mostramos todo sin animación -->
     <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
   </head>
   <body>
-    <!-- ═══ NAV ═══ -->
+    <!-- ═══ NAV — Barra de navegación compartida con todas las páginas ═══ -->
     <header class="nav">
       <a href="../index.html" class="logo">Trendy<em>Shop</em></a>
       <nav class="nav__links">
         <a href="../catalogo/index.html">Catálogo</a>
         <a href="../quienes-somos/index.html">Quiénes Somos</a>
         <a href="../contactanos/index.html">Contacto</a>
+        <!-- Badge .bag__count se actualiza desde JS (cart.js → updateBadges) -->
         <a href="../carrito/index.html" class="bag">
           Carrito <span class="bag__count">0</span>
         </a>
       </nav>
     </header>
 
-    <!-- ═══ HERO CATÁLOGO ═══ -->
+    <!-- ═══ HERO — Encabezado visual con fondo vino ═══ -->
     <section class="cat-hero">
       <div class="wrap">
         <div class="eyebrow">Nuestra selección</div>
@@ -41,7 +58,10 @@
       </div>
     </section>
 
-    <!-- ═══ FILTROS + PRODUCTOS ═══ -->
+    <!-- ═══ FILTROS + GRID DE PRODUCTOS ═══ -->
+    <!-- Los botones de filtro usan data-cat para indicar la categoría.
+         El contenedor #productos se llena dinámicamente desde catalogo.js.
+         Clic en tarjeta → abre modal. Clic en "Añadir" → agrega rápido. -->
     <section class="section">
       <div class="wrap">
         <div class="cat-filters reveal" id="filtros">
@@ -80,6 +100,29 @@
       </div>
       <div class="footer__legal">© 2026 TrendyShop · Todos los derechos reservados</div>
     </footer>
+
+    <!-- ═══ MODAL de detalle de producto (oculto por defecto) ═══ -->
+    <!-- Al hacer clic en una tarjeta del catálogo, este modal muestra
+         imagen, descripción, composición, tallas y botón de añadir al carrito. -->
+    <div class="modal" id="cat-modal" hidden>
+      <div class="modal__card">
+        <button class="modal__close" id="catModalClose" aria-label="Cerrar">×</button>
+        <div class="modal__img">
+          <img id="cmImg" alt="" />
+        </div>
+        <div class="modal__body">
+          <div class="modal__tag" id="cmTag"></div>
+          <h3 class="modal__name" id="cmName"></h3>
+          <div class="modal__price" id="cmPrice"></div>
+          <p class="modal__desc" id="cmDesc"></p>
+          <div class="modal__fabric" id="cmFabric"></div>
+          <div class="modal__sizes" id="cmSizes"></div>
+          <div class="modal__actions">
+            <button class="btn btn--solid" id="cmAddBtn">Añadir a la bolsa</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script type="module" src="../js/catalogo.js"></script>
   </body>
