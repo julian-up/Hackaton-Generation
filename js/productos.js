@@ -6,7 +6,7 @@ const faldas = document.getElementById('faldas')
 const pantalones = document.getElementById('pantalones')
 
 let cantidadCarrito = 0;
-
+let carrito = [];
 document.addEventListener('DOMContentLoaded', () => {
     console.log('La página ya cargó');
     const productos = document.getElementById('productos');
@@ -44,7 +44,7 @@ const productos = {
             imagen: "prenda4.png",
             categoria: "Faldas",
             descripcion: "Falda plisada Coco",
-            precio: "62.00"
+            precio: "62.000"
         },
         {
             id: 5,
@@ -58,7 +58,7 @@ const productos = {
             imagen: "prenda6.png",
             categoria: "Pantalones",
             descripcion: "Pantalón sastre Vino",
-            precio: "78.00"
+            precio: "78.000"
         }
     ]
 };
@@ -85,15 +85,43 @@ function cargarProductos(categoria = "Todo") {
                         <p class="precio">$${prenda.precio}</p>
                     </div>
 
-                    <button class="btn-add" onclick="agregarAlCarrito()">+</button>
+                    <button class="btn-add" onclick="agregarAlCarrito(${prenda.id})">+</button>
+                    <button class="btn-remove" onclick="sacarDelCarrito(${prenda.id})">-</button>
                 </div>
             </article>
         `;
     });
 }
-function agregarAlCarrito() {
-    cantidadCarrito++;
-    document.getElementById("contador-carrito").textContent = cantidadCarrito;
+function sacarDelCarrito(idProducto) {
+    const indice = carrito.findIndex(
+        producto => producto.id === idProducto
+    );
+    if (indice !== -1) {
+        carrito.splice(indice, 1);
+
+        cantidadCarrito = carrito.length;
+
+        document.getElementById("contador-carrito").textContent =
+            cantidadCarrito;
+
+        localStorage.setItem(
+            "carrito",
+            JSON.stringify(carrito)
+        );
+    }
+}
+function agregarAlCarrito(idProducto) {
+    const producto = productos.prendas.find(
+        p => p.id === idProducto
+    );
+    carrito.push(producto);
+    cantidadCarrito = carrito.length;
+    document.getElementById("contador-carrito").textContent =
+        cantidadCarrito;
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
 }
 vestidos.addEventListener('click', () => cargarProductos("Vestidos"));
 blusas.addEventListener('click', () => cargarProductos("Blusas"));
