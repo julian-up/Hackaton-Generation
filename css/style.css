@@ -238,6 +238,38 @@ button {
 .nav__links a:hover {
   opacity: 1;
 }
+
+/* Botón hamburguesa: 3 barras que se animan a X al abrir. Oculto en desktop. */
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+}
+.nav__toggle span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--rojo);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.nav__toggle.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav__toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.nav__toggle.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
 .bag {
   display: flex;
   align-items: center;
@@ -258,6 +290,93 @@ button {
   background: var(--rojo);
   color: var(--linen);
   font-size: 0.7rem;
+}
+
+/* MINI-CARRITO: panel desplegable al pasar el cursor sobre el botón del carrito.
+   Se muestra horizontalmente con los productos añadidos y un botón para ir
+   a la bolsa completa. Aparece con transición suave. */
+.bag-wrap {
+  position: relative;
+}
+.mini-cart {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 60;
+  width: min(420px, 90vw);
+  background: var(--cream);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  padding: var(--s3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s;
+  pointer-events: none;
+}
+.bag-wrap:hover .mini-cart,
+.mini-cart:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.mini-cart__items {
+  display: flex;
+  gap: var(--s2);
+  overflow-x: auto;
+  padding-bottom: var(--s2);
+  scrollbar-width: thin;
+  scrollbar-color: var(--rozy) transparent;
+}
+.mini-cart__items::-webkit-scrollbar {
+  height: 4px;
+}
+.mini-cart__items::-webkit-scrollbar-thumb {
+  background: var(--rozy);
+  border-radius: 99px;
+}
+.mini-cart__item {
+  flex: 0 0 auto;
+  width: 80px;
+  text-align: center;
+}
+.mini-cart__item img {
+  width: 80px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: var(--r);
+  background: var(--pale-oak);
+}
+.mini-cart__item-name {
+  font-size: 0.68rem;
+  font-weight: 600;
+  margin-top: 0.3rem;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mini-cart__item-size {
+  font-size: 0.62rem;
+  color: var(--rozy);
+}
+.mini-cart__empty {
+  font-size: 0.85rem;
+  opacity: 0.6;
+  padding: var(--s2) 0;
+  text-align: center;
+  width: 100%;
+}
+.mini-cart__go {
+  display: block;
+  text-align: center;
+  margin-top: var(--s2);
+  padding: 0.6rem 1.2rem;
+  font-size: 0.82rem;
 }
 
 /* HERO A (editorial, fondo vino) ----------------------------------------- */
@@ -357,13 +476,13 @@ button {
   aspect-ratio: 3/4;
   border-radius: var(--r-lg);
   box-shadow: var(--shadow);
-  background:
-    repeating-linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.1) 0 14px,
-      transparent 14px 28px
-    ),
-    var(--rozy);
+  overflow: hidden;
+  background: var(--rozy);
+}
+.float-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .float-card__img .ph__cap {
   color: var(--rojo);
@@ -568,9 +687,13 @@ button {
   aspect-ratio: 4/5;
   border-radius: var(--r-lg);
   box-shadow: var(--shadow);
+  overflow: hidden;
+  background: var(--pale-oak);
 }
-.editorial__img .ph__cap {
-  color: var(--rojo);
+.editorial__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .editorial__text {
   flex: 1 1 340px;
@@ -697,6 +820,13 @@ button {
   min-width: 280px;
   aspect-ratio: 4/3;
   border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--pale-oak);
+}
+.story__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .story__text {
   flex: 1 1 340px;
@@ -1459,13 +1589,64 @@ button {
   }
 }
 
-/* ── 7. Ajustes responsive puntuales ──────────────────────────────────── */
-/* La mayoría del layout es fluido (clamp + flex-wrap + grid auto-fit). Solo
-   afinamos un par de cosas en pantallas pequeñas. */
-@media (max-width: 560px) {
+/* ── 7. Ajustes responsive ────────────────────────────────────────────── */
+
+/* Tablet y móvil: menú hamburguesa. El nav__links se convierte en un panel
+   vertical deslizante que se abre al tocar el botón de 3 barras. */
+@media (max-width: 768px) {
   .nav {
+    flex-wrap: wrap;
     gap: var(--s2);
   }
+
+  /* Muestra el botón hamburguesa */
+  .nav__toggle {
+    display: flex;
+    order: 2;
+  }
+
+  /* El logo queda primero, el botón segundo */
+  .logo {
+    order: 1;
+    flex: 1;
+  }
+
+  /* Links se ocultan y se muestran como panel vertical */
+  .nav__links {
+    order: 3;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .nav__links.is-open {
+    max-height: 400px;
+    padding-top: var(--s2);
+  }
+
+  /* Cada link ocupa toda la fila */
+  .nav__links > a,
+  .nav__links > .bag-wrap {
+    padding: 0.75rem 0;
+    border-top: 1px solid rgba(77, 15, 20, 0.08);
+    font-size: 1rem;
+  }
+
+  /* Mini-carrito se posiciona relativo en móvil */
+  .mini-cart {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+  }
+
+  /* Tarjeta flotante del hero: más pequeña */
   .float-badge {
     left: 8px;
     bottom: 16px;
@@ -1473,5 +1654,26 @@ button {
   .float-price {
     right: 8px;
     top: 16px;
+  }
+
+  /* Cart items apilados verticalmente */
+  .cart-item__actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}
+
+/* Móvil pequeño: ajustes finos */
+@media (max-width: 400px) {
+  .cat-grid {
+    grid-template-columns: 1fr;
+  }
+  .cart-item {
+    flex-wrap: wrap;
+  }
+  .cart-item__actions {
+    width: 100%;
+    justify-content: space-between;
+    padding-top: var(--s2);
   }
 }

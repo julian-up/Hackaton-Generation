@@ -23,13 +23,24 @@
     <!-- ═══ NAV ═══ -->
     <header class="nav">
       <a href="../index.html" class="logo">Trendy<em>Shop</em></a>
-      <nav class="nav__links">
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="navLinks">
         <a href="../catalogo/index.html">Catálogo</a>
         <a href="../quienes-somos/index.html">Quiénes Somos</a>
         <a href="../contactanos/index.html">Contacto</a>
-        <a href="../carrito/index.html" class="bag">
-          Carrito <span class="bag__count">0</span>
-        </a>
+        <div class="bag-wrap">
+          <a href="../carrito/index.html" class="bag">
+            Carrito <span class="bag__count">0</span>
+          </a>
+          <div class="mini-cart" id="mini-cart">
+            <div class="mini-cart__items" id="mini-cart-items">
+              <p class="mini-cart__empty">Tu bolsa está vacía</p>
+            </div>
+            <a href="../carrito/index.html" class="btn btn--solid mini-cart__go">Ver bolsa completa</a>
+          </div>
+        </div>
       </nav>
     </header>
 
@@ -83,7 +94,7 @@
           <div class="footer__col">
             <b>Marca</b>
             <a href="../contactanos/index.html">Contacto</a>
-            <a href="#">Envíos</a>
+
           </div>
         </div>
       </div>

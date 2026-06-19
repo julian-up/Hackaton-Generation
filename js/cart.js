@@ -78,7 +78,8 @@ export function clearCart() {
   updateBadges();
 }
 
-// Actualiza todos los badges de carrito visibles en la página actual.
+// Actualiza todos los badges de carrito visibles en la página actual
+// y renderiza el contenido del mini-carrito desplegable.
 export function updateBadges() {
   const count = getTotalItems();
   document
@@ -87,4 +88,40 @@ export function updateBadges() {
       el.textContent = count;
       if (el.hasAttribute("hidden")) el.hidden = count === 0;
     });
+  renderMiniCart();
+}
+
+// Renderiza el mini-carrito desplegable que aparece al pasar el cursor
+// sobre el botón "Carrito" de la barra de navegación.
+// Muestra las imágenes de los productos en fila horizontal.
+function renderMiniCart() {
+  const container = document.getElementById("mini-cart-items");
+  if (!container) return;
+
+  const items = load();
+  if (items.length === 0) {
+    container.innerHTML = '<p class="mini-cart__empty">Tu bolsa está vacía</p>';
+    return;
+  }
+
+  // Detecta si estamos en la raíz o en una subcarpeta para armar la ruta.
+  const depth = window.location.pathname.includes("/carrito/") ||
+                window.location.pathname.includes("/catalogo/") ||
+                window.location.pathname.includes("/quienes-somos/") ||
+                window.location.pathname.includes("/contactanos/")
+    ? "../img/"
+    : "./img/";
+
+  container.innerHTML = items
+    .map(
+      (item) =>
+        '<div class="mini-cart__item">' +
+          '<img src="' + depth + item.image + '" alt="' + item.name + '">' +
+          '<div class="mini-cart__item-name">' + item.name + "</div>" +
+          '<div class="mini-cart__item-size">' + (item.size || "") +
+            (item.quantity > 1 ? " ×" + item.quantity : "") +
+          "</div>" +
+        "</div>",
+    )
+    .join("");
 }

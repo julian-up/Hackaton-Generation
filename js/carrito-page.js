@@ -99,5 +99,7 @@ document.getElementById("btn-buy").addEventListener("click", () => {
 });
 
 // Inicialización.
+import { initNavToggle } from "./ux.js";
 render();
 updateBadges();
+initNavToggle();

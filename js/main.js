@@ -8,7 +8,7 @@
 //   4. Mostrar toast de confirmación al agregar
 //   5. Sincronizar el badge del carrito con localStorage
 // ════════════════════════════════════════════════════════════════════════
-import { $, $$, initTilt, initReveal } from "./ux.js";
+import { $, $$, initTilt, initReveal, initNavToggle } from "./ux.js";
 import { PRODUCTS } from "./data.js";
 import { addItem, updateBadges } from "./cart.js";
 
@@ -35,9 +35,10 @@ function renderCard(p, i) {
 // Inyecta las tarjetas en el riel del carrusel.
 $("#rail").innerHTML = PRODUCTS.map(renderCard).join("");
 
-// Inicializa los efectos de tilt 3D y aparición al scroll.
+// Inicializa los efectos de tilt 3D, aparición al scroll y menú hamburguesa.
 initTilt();
 initReveal();
+initNavToggle();
 
 // Actualiza los badges del carrito al cargar la página.
 updateBadges();

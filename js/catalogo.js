@@ -9,7 +9,7 @@
 //   5. Sincronizar el badge del carrito con localStorage
 // ════════════════════════════════════════════════════════════════════════
 
-import { initReveal } from "./ux.js";
+import { initReveal, initNavToggle } from "./ux.js";
 import { PRODUCTS } from "./data.js";
 import { addItem, updateBadges } from "./cart.js";
 
@@ -187,3 +187,4 @@ function showToast(msg) {
 render("Todo");     // Renderiza todos los productos al cargar.
 updateBadges();     // Sincroniza el badge del carrito con localStorage.
 initReveal();       // Activa las animaciones de aparición al scroll.
+initNavToggle();    // Activa el menú hamburguesa en móvil.

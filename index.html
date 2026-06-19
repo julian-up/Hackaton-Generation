@@ -30,23 +30,29 @@
   <body>
     <!-- ═══ NAV (compartida) ═══ -->
     <header class="nav">
-      <a
-        href="index.html"
-        class="logo"
-      >
-        Trendy<em>Shop</em>
-      </a>
-      <nav class="nav__links">
+      <a href="index.html" class="logo">Trendy<em>Shop</em></a>
+      <!-- Botón hamburguesa: solo visible en móvil, abre/cierra el menú -->
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="navLinks">
         <a href="./catalogo/index.html">Catálogo</a>
         <a href="./quienes-somos/index.html">Quiénes Somos</a>
         <a href="./contactanos/index.html">Contacto</a>
 
-        <a
-          href="./carrito/index.html"
-          class="bag"
-          >
-          Carrito <span class="bag__count">0</span>
-        </a>
+        <!-- Mini-carrito: al pasar el cursor se despliega un panel horizontal
+             con los productos agregados y un botón para ir a la bolsa completa. -->
+        <div class="bag-wrap">
+          <a href="./carrito/index.html" class="bag">
+            Carrito <span class="bag__count">0</span>
+          </a>
+          <div class="mini-cart" id="mini-cart">
+            <div class="mini-cart__items" id="mini-cart-items">
+              <p class="mini-cart__empty">Tu bolsa está vacía</p>
+            </div>
+            <a href="./carrito/index.html" class="btn btn--solid mini-cart__go">Ver bolsa completa</a>
+          </div>
+        </div>
       </nav>
     </header>
 
@@ -75,11 +81,11 @@
           <!-- Tarjeta flotante: data-tilt activa la inclinación 3D con el cursor. -->
           <div class="hero-a__media">
             <div class="float-card" data-tilt>
-              <div class="float-card__img ph">
-                <span class="ph__cap">foto · look completo</span>
+              <div class="float-card__img">
+                <img src="./img/modelo.jpg" alt="Colección Otoño 2026" />
               </div>
-              <div class="float-badge">Vestido Toscana</div>
-              <div class="float-price">$289.000</div>
+              <div class="float-badge">Vestido Aurora</div>
+              <div class="float-price">$89.900</div>
             </div>
           </div>
         </div>
@@ -101,8 +107,8 @@
 
         <!-- Editorial split -->
         <div class="editorial reveal">
-          <div class="editorial__img ph ph--rozy">
-            <span class="ph__cap">foto · editorial taller</span>
+          <div class="editorial__img">
+            <img src="./img/prenda3.png" alt="Abrigo largo Dune — pieza editorial" />
           </div>
           <div class="editorial__text">
             <div class="eyebrow">Hecho para durar</div>
@@ -121,8 +127,8 @@
                 <div class="stat__label">tejidos nobles</div>
               </div>
               <div>
-                <div class="stat__num">48h</div>
-                <div class="stat__label">envío exprés</div>
+                <div class="stat__num">6</div>
+                <div class="stat__label">categorías</div>
               </div>
             </div>
           </div>
@@ -192,7 +198,7 @@
             <b>Marca</b>
             <a href="./quienes-somos/index.html">Quiénes Somos</a>
             <a href="./contactanos/index.html">Contacto</a>
-            <a href="#">Envíos</a>
+
           </div>
         </div>
       </div>

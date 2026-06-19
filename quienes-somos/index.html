@@ -17,16 +17,25 @@
   <body>
     <!-- ═══ NAV ═══ -->
     <header class="nav">
-      <a href="../index.html" class="logo">
-        Trendy<em>Shop</em>
-      </a>
-      <nav class="nav__links">
+      <a href="../index.html" class="logo">Trendy<em>Shop</em></a>
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="navLinks">
         <a href="../catalogo/index.html">Catálogo</a>
         <a href="../quienes-somos/index.html">Quiénes Somos</a>
         <a href="../contactanos/index.html">Contacto</a>
-        <a href="../carrito/index.html" class="bag">
-          Carrito <span class="bag__count">0</span>
-        </a>
+        <div class="bag-wrap">
+          <a href="../carrito/index.html" class="bag">
+            Carrito <span class="bag__count">0</span>
+          </a>
+          <div class="mini-cart" id="mini-cart">
+            <div class="mini-cart__items" id="mini-cart-items">
+              <p class="mini-cart__empty">Tu bolsa está vacía</p>
+            </div>
+            <a href="../carrito/index.html" class="btn btn--solid mini-cart__go">Ver bolsa completa</a>
+          </div>
+        </div>
       </nav>
     </header>
 
@@ -61,8 +70,8 @@
 
         <!-- El Comienzo -->
         <div class="story reveal">
-          <div class="story__img ph ph--rozy">
-            <span class="ph__cap">foto · primeras oficinas</span>
+          <div class="story__img">
+            <img src="../img/prenda1.png" alt="TrendyShop en sus inicios — Vestido Aurora" />
           </div>
           <div class="story__text">
             <span class="story__badge story__badge--dark">2018</span>
@@ -84,8 +93,8 @@
 
         <!-- La Crisis -->
         <div class="story story--reverse reveal">
-          <div class="story__img ph ph--oak">
-            <span class="ph__cap">foto · momentos difíciles</span>
+          <div class="story__img">
+            <img src="../img/prenda4.png" alt="Momentos de reflexión — Falda Coco" />
           </div>
           <div class="story__text">
             <span class="story__badge story__badge--warn">2025</span>
@@ -105,8 +114,8 @@
 
         <!-- Recuperación -->
         <div class="story reveal">
-          <div class="story__img ph ph--rozy">
-            <span class="ph__cap">foto · equipo actual</span>
+          <div class="story__img">
+            <img src="../img/modelo.jpg" alt="El nuevo TrendyShop — equipo renovado" />
           </div>
           <div class="story__text">
             <span class="story__badge story__badge--ok">2026</span>
@@ -117,8 +126,8 @@
               pusimos al cliente en el centro de cada decisión.
             </p>
             <div class="story__alert story__alert--ok">
-              <strong>Nuevo compromiso:</strong> transparencia total, envíos en
-              48 horas y satisfacción garantizada.
+              <strong>Nuevo compromiso:</strong> transparencia total, calidad
+              garantizada y atención personalizada.
             </div>
             <a
               href="../catalogo/index.html"
@@ -169,10 +178,10 @@
           </div>
           <div class="value-item" data-tilt>
             <div class="value-sym">&raquo;</div>
-            <h4>Velocidad</h4>
+            <h4>Agilidad</h4>
             <p>
-              Envíos en 48 horas o menos. Porque sabemos que la espera no es una
-              opción.
+              Procesos ágiles y entregas eficientes. Nos movemos rápido para que
+              tú no tengas que esperar.
             </p>
           </div>
           <div class="value-item" data-tilt>
@@ -297,7 +306,7 @@
             <b>Marca</b>
             <a href="../quienes-somos/index.html">Quiénes Somos</a>
             <a href="../contactanos/index.html">Contacto</a>
-            <a href="#">Envíos</a>
+
           </div>
         </div>
       </div>

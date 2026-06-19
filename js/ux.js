@@ -76,3 +76,25 @@ export function initReveal() {
   // Le decimos al vigilante que comience a observar todos los elementos seleccionados al principio.
   reveals.forEach((el) => io.observe(el));
 }
+
+// Inicializa el menú hamburguesa para dispositivos móviles.
+// Al tocar el botón, alterna las clases is-open en el botón y en el panel de links.
+// Al hacer clic en un link del menú, lo cierra automáticamente.
+export function initNavToggle() {
+  const toggle = document.getElementById("navToggle");
+  const links = document.getElementById("navLinks");
+  if (!toggle || !links) return;
+
+  toggle.addEventListener("click", () => {
+    toggle.classList.toggle("is-open");
+    links.classList.toggle("is-open");
+  });
+
+  // Cierra el menú al hacer clic en cualquier enlace (navegación fluida).
+  links.querySelectorAll("a:not(.bag)").forEach((a) => {
+    a.addEventListener("click", () => {
+      toggle.classList.remove("is-open");
+      links.classList.remove("is-open");
+    });
+  });
+}
