@@ -204,6 +204,9 @@ button {
 .hero-a {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
   background: var(--rojo);
   color: var(--linen);
   padding: clamp(3rem, 7vw, 6rem) clamp(1rem, 5vw, 4rem) clamp(4rem, 8vw, 7rem);
@@ -989,6 +992,63 @@ button {
     display: none;
   }
 }
+
+/* ── Correcciones derivadas del index.html principal ─────────────────── */
+
+/* main no tiene padding propio — las secciones internas lo gestionan,
+   pero necesitamos evitar desbordamiento horizontal. */
+main {
+  overflow-x: hidden;
+}
+
+/* .section ya define padding vertical pero no contiene el ancho;
+   los hijos directos con max-width lo hacen. Añadimos overflow por seguridad. */
+.section {
+  overflow-x: hidden;
+}
+
+/* El nav__links incluye el .bag como hijo directo (no es un <a>),
+   alineamos correctamente el cursor. */
+.bag {
+  cursor: default;
+}
+
+/* El data-tilt del .float-card y .member necesita will-change para GPU */
+.member {
+  will-change: transform;
+}
+
+/* Responsive: en móvil el hero split apila verticalmente */
+@media (max-width: 700px) {
+  .hero-a__media {
+    width: 100%;
+    flex-basis: auto;
+  }
+
+  .float-card {
+    width: min(320px, 82vw);
+  }
+
+  .editorial {
+    flex-direction: column;
+  }
+
+  .team__grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+/* Responsive: nav links se apilan en pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .nav__links {
+    gap: var(--s2);
+    font-size: 0.85rem;
+  }
+
+  .stats {
+    gap: var(--s4);
+  }
+}
 /* ═══════════════════════════════════════════════════════
                         CONTACTANOS
 ═══════════════════════════════════════════════════════ */
@@ -1488,5 +1548,460 @@ main section h2 {
     right: var(--s2);
     left: var(--s2);
     bottom: var(--s3);
+  }
+}
+/* ═══════════════════════════════════════════════════════
+                        CATÁLOGO
+═══════════════════════════════════════════════════════ */
+
+/* ── HEADER ─────────────────────────────────────────── */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s3) clamp(1rem, 5vw, 4rem);
+  background: rgba(238, 228, 218, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(77, 15, 20, 0.08);
+}
+
+/* Marca */
+header > div:first-child h1 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--rojo);
+  line-height: 1;
+}
+
+header > div:first-child p {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rozy);
+  margin-top: 0.15rem;
+}
+
+/* Nav */
+.menu ul {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.4rem);
+  list-style: none;
+}
+
+.menu a {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--ink);
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.menu a:hover {
+  opacity: 1;
+}
+
+/* Carrito */
+.cart a {
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(77, 15, 20, 0.2);
+  border-radius: var(--r-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--rojo);
+  transition: background 0.2s ease;
+}
+
+.cart a:hover {
+  background: rgba(77, 15, 20, 0.05);
+}
+
+.cart img {
+  width: 20px;
+  height: 20px;
+  display: inline;
+}
+
+#contador-carrito {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--rojo);
+  color: var(--linen);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* ── SECCIÓN COLECCIÓN (hero split) ─────────────────── */
+.coleccion {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  background: var(--rojo);
+  color: var(--linen);
+  padding: clamp(3rem, 7vw, 6rem) clamp(1rem, 5vw, 4rem) clamp(4rem, 8vw, 7rem);
+  overflow: hidden;
+}
+
+/* Blob decorativo izquierda */
+.coleccion::before {
+  content: "";
+  position: absolute;
+  bottom: -100px;
+  left: -40px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--pale-oak), transparent 70%);
+  opacity: 0.35;
+  filter: blur(6px);
+  animation: flotaLento 11s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Blob decorativo derecha */
+.coleccion::after {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: 8%;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--rozy), transparent 70%);
+  opacity: 0.45;
+  filter: blur(8px);
+  animation: flota 9s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.coleccion-content {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 380px;
+  min-width: 300px;
+  animation: riseIn 0.7s ease both;
+}
+
+.coleccion-content > span {
+  display: block;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: var(--t-eyebrow);
+  color: var(--rozy);
+  margin-bottom: var(--s3);
+}
+
+.coleccion-content h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--t-hero);
+  line-height: 1.02;
+  letter-spacing: -0.5px;
+  margin-bottom: var(--s4);
+  color: var(--linen);
+}
+
+.coleccion-content p {
+  font-size: var(--t-body);
+  line-height: 1.7;
+  max-width: 46ch;
+  opacity: 0.85;
+  margin-bottom: var(--s6);
+}
+
+.coleccion-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 2rem;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  font-weight: 600;
+  font-size: var(--t-body);
+  background: var(--linen);
+  color: var(--rojo);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 2rem;
+  border: 1px solid rgba(238, 228, 218, 0.4);
+  border-radius: var(--r-pill);
+  font-weight: 600;
+  font-size: var(--t-body);
+  background: transparent;
+  color: var(--linen);
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  background: rgba(238, 228, 218, 0.1);
+}
+
+/* Imagen del hero */
+.coleccion-image {
+  position: relative;
+  z-index: 1;
+  flex: 0 1 420px;
+  min-width: 280px;
+  display: flex;
+  justify-content: center;
+}
+
+.coleccion-image img {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  animation: flota 7s ease-in-out infinite;
+}
+
+/* ── SECCIÓN CATÁLOGO ───────────────────────────────── */
+.catalogo {
+  width: 100%;
+  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 5vw, 4rem);
+  background: linear-gradient(180deg, var(--cream), var(--linen));
+}
+
+.catalogo-header {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  margin-bottom: var(--s6);
+}
+
+.catalogo-header > span {
+  display: block;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: var(--t-eyebrow);
+  color: var(--rozy);
+  margin-bottom: var(--s2);
+}
+
+.catalogo-header h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--t-h2);
+  color: var(--rojo);
+  line-height: 1.05;
+  margin-bottom: var(--s4);
+}
+
+/* ── Filtros ─────────────────────────────────────────── */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.filtros button {
+  padding: 0.55rem 1.3rem;
+  border: 1px solid rgba(77, 15, 20, 0.2);
+  border-radius: var(--r-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: transparent;
+  color: var(--ink);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.filtros button:hover {
+  border-color: var(--rojo);
+  color: var(--rojo);
+  transform: translateY(-1px);
+}
+
+.filtros button.activo {
+  background: var(--rojo);
+  color: var(--linen);
+  border-color: transparent;
+}
+
+/* ── Grid de productos ───────────────────────────────── */
+.productos {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--s4);
+}
+
+/* Tarjeta de producto (generada por JS) */
+.producto-card {
+  background: var(--cream);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease-out,
+    box-shadow 0.2s ease-out;
+}
+
+.producto-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.producto-card img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+}
+
+/* Placeholder cuando no hay imagen */
+.producto-card__img-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(77, 15, 20, 0.07) 0 14px,
+      transparent 14px 28px
+    ),
+    var(--pale-oak);
+  display: grid;
+  place-items: center;
+  font-family: ui-monospace, monospace;
+  font-size: 0.72rem;
+  color: var(--rojo-70);
+}
+
+.producto-card__body {
+  padding: var(--s3);
+}
+
+.producto-card__tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--linen);
+  background: var(--rojo);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--r-pill);
+  margin-bottom: var(--s2);
+}
+
+.producto-card__nombre {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: var(--t-h3);
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+
+.producto-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--s2);
+}
+
+.producto-card__precio {
+  font-weight: 700;
+  color: var(--rojo);
+  font-size: 1rem;
+}
+
+.producto-card__btn {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--rozy);
+  background: transparent;
+  border: none;
+  transition: color 0.2s ease;
+}
+.producto-card__btn:hover {
+  color: var(--rojo);
+}
+.productos:empty::after {
+  content: "Cargando productos…";
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--s8) 0;
+  font-size: var(--t-body);
+  color: var(--ink);
+  opacity: 0.5;
+}
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .coleccion {
+    flex-direction: column;
+  }
+
+  .coleccion-image {
+    width: 100%;
+    flex-basis: auto;
+  }
+
+  .coleccion-image img {
+    max-width: 320px;
+    margin-inline: auto;
+    animation: none;
+  }
+}
+
+@media (max-width: 560px) {
+  header {
+    flex-wrap: wrap;
+    gap: var(--s2);
+  }
+
+  .menu ul {
+    gap: var(--s2);
+    font-size: 0.85rem;
+  }
+
+  .productos {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--s3);
   }
 }
