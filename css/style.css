@@ -1158,3 +1158,335 @@ main section h2 {
     align-self: stretch;
   }
 }
+/* ═══════════════════════════════════════════════════════
+                    CARRITO DE COMPRAS
+═══════════════════════════════════════════════════════ */
+
+/* ── Header / Nav ───────────────────────────────────── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(238, 228, 218, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(77, 15, 20, 0.08);
+  padding: var(--s3) clamp(1rem, 5vw, 4rem);
+}
+
+.navar {
+  max-width: var(--maxw);
+  margin-inline: auto;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.4rem);
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.nav-list a {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--ink);
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.nav-list a:hover {
+  opacity: 1;
+}
+
+/* Ícono de carrito (último ítem del nav) */
+.nav-list li:last-child a {
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(77, 15, 20, 0.2);
+  border-radius: var(--r-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--rojo);
+  opacity: 1;
+}
+
+.navbar_contador {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--rojo);
+  color: var(--linen);
+  font-size: 0.7rem;
+}
+
+/* ── Main / página del carrito ──────────────────────── */
+.carrito-page {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 5vw, 4rem);
+  background: linear-gradient(180deg, var(--cream), var(--linen));
+  min-height: 60vh;
+}
+
+.carrito-page h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--t-h2);
+  color: var(--rojo);
+  line-height: 1.05;
+  margin-bottom: var(--s6);
+}
+
+/* ── Carrito vacío ───────────────────────────────────── */
+.carrito-vacio {
+  text-align: center;
+  font-size: var(--t-body);
+  line-height: 1.7;
+  color: var(--ink);
+  opacity: 0.7;
+  padding: var(--s8) 0;
+}
+
+.carrito-vacio a {
+  color: var(--rojo);
+  font-weight: 600;
+  border-bottom: 1px solid rgba(77, 15, 20, 0.3);
+  transition: border-color 0.2s ease;
+}
+
+.carrito-vacio a:hover {
+  border-color: var(--rojo);
+}
+
+/* ── Lista de items ─────────────────────────────────── */
+.carrito-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  margin-bottom: var(--s6);
+}
+
+/* Cada producto en el carrito */
+.carrito-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  background: var(--cream);
+  border-radius: var(--r-lg);
+  padding: var(--s3);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease;
+}
+
+.carrito-item:hover {
+  box-shadow: var(--shadow);
+}
+
+.carrito-item__img {
+  width: 88px;
+  height: 88px;
+  border-radius: var(--r);
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--pale-oak);
+}
+
+.carrito-item__info {
+  flex: 1;
+}
+
+.carrito-item__nombre {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: var(--t-h3);
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+
+.carrito-item__detalle {
+  font-size: 0.82rem;
+  color: var(--ink);
+  opacity: 0.65;
+  margin-bottom: 0.4rem;
+}
+
+.carrito-item__precio {
+  font-weight: 700;
+  color: var(--rojo);
+  font-size: 1rem;
+}
+
+.carrito-item__eliminar {
+  border: none;
+  background: transparent;
+  color: var(--rozy);
+  font-size: 1.2rem;
+  padding: 0.4rem;
+  border-radius: 50%;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.carrito-item__eliminar:hover {
+  color: var(--rojo);
+  background: rgba(77, 15, 20, 0.08);
+}
+
+/* ── Resumen / total ─────────────────────────────────── */
+.carrito-resumen {
+  background: var(--cream);
+  border-radius: var(--r-lg);
+  padding: clamp(1.5rem, 4vw, 2rem);
+  box-shadow: var(--shadow);
+  max-width: 480px;
+  margin-left: auto;
+}
+
+.carrito-resumen_total-linea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--s3);
+  border-bottom: 1px solid rgba(77, 15, 20, 0.1);
+  margin-bottom: var(--s4);
+}
+
+.carrito-resumen_label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.65;
+}
+
+.carrito-resumen_total {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--rojo);
+}
+
+/* ── Botones de acción ───────────────────────────────── */
+.carrito-resumen_acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.btn-vaciar {
+  flex: 1 1 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 1.5rem;
+  border: 1px solid rgba(77, 15, 20, 0.3);
+  border-radius: var(--r-pill);
+  font-weight: 600;
+  font-size: var(--t-body);
+  background: transparent;
+  color: var(--rojo);
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn-vaciar:hover {
+  background: rgba(77, 15, 20, 0.06);
+  transform: translateY(-2px);
+}
+
+.btn-seguir-comprando {
+  flex: 1 1 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  font-weight: 600;
+  font-size: var(--t-body);
+  background: var(--rojo);
+  color: var(--linen);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-seguir-comprando:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+/* ── Toast notificaciones ────────────────────────────── */
+.toast-container {
+  position: fixed;
+  bottom: var(--s4);
+  right: var(--s4);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--ink);
+  color: var(--linen);
+  padding: 0.85rem 1.3rem;
+  border-radius: var(--r);
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: var(--shadow);
+  animation: surge 0.3s ease both;
+  pointer-events: auto;
+  max-width: 320px;
+}
+
+.toast--ok {
+  border-left: 3px solid var(--rozy);
+}
+
+.toast--error {
+  border-left: 3px solid #e05;
+}
+
+/* ── Footer ──────────────────────────────────────────── */
+.footer {
+  background: var(--ink);
+  color: var(--linen);
+  text-align: center;
+  padding: var(--s4) clamp(1rem, 5vw, 4rem);
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 560px) {
+  .carrito-item {
+    flex-wrap: wrap;
+  }
+
+  .carrito-resumen {
+    max-width: 100%;
+  }
+
+  .carrito-resumen_acciones {
+    flex-direction: column;
+  }
+
+  .toast-container {
+    right: var(--s2);
+    left: var(--s2);
+    bottom: var(--s3);
+  }
+}
