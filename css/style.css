@@ -1,0 +1,1086 @@
+/* ════════════════════════════════════════════════════════════════════════
+   TrendyShop · Estilos globales
+   ────────────────────────────────────────────────────────────────────────
+   ESTRUCTURA del archivo (de lo general a lo concreto):
+     1. Tokens de diseño (:root)        → fuente única de verdad
+     2. Reset y base
+     3. Utilidades (botones, eyebrow, reveal)
+     4. Componentes (nav, hero, carrusel, editorial, fundadoras, footer)
+     5. Modal y switcher
+     6. Animaciones (@keyframes)
+     7. Ajustes responsive
+
+   PRINCIPIO: todo color/tamaño/espacio sale de un token. Cambiar la marca =
+   cambiar :root, no perseguir valores por todo el archivo. Eso lo hace
+   ESCALABLE. Los tamaños usan clamp() para ser RESPONSIVOS sin breakpoints.
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* — Paleta de marca (entregada) + neutros derivados —
+     POR QUÉ derivar --cream e --ink: necesitamos un fondo más luminoso que el
+     linen y un "negro" cálido para texto, sin salir de la familia terrosa. */
+  --rojo: #4d0f14; /* vino · acento principal y fondos dramáticos        */
+  --rozy: #c7a49e; /* rosa empolvado · acento suave                      */
+  --pale-oak: #d9c3ac; /* arena · placeholders e ilustración                 */
+  --linen: #eee4da; /* lino · fondo base                                  */
+  --cream: #f7f2eb; /* crema · fondos amplios (más claro que linen)       */
+  --ink: #2a1316; /* tinta cálida · texto sobre claro (no negro puro)   */
+  --rojo-70: rgba(77, 15, 20, 0.7);
+  --linen-12: rgba(238, 228, 218, 0.12);
+
+  /* — Tipografía —
+     POR QUÉ pareja serif + sans: el contraste da el aire "boutique premium".
+     Serif editorial para titulares; sans amable para lectura larga. */
+  --serif: "Noto Serif Display", Georgia, serif;
+  --sans: "Quicksand", system-ui, sans-serif;
+
+  /* — Escala de tipo FLUIDA: clamp(mínimo, preferido-en-vw, máximo) —
+     POR QUÉ clamp y no media-queries: el tamaño interpola con el ancho de la
+     ventana → crecimiento continuo, sin saltos ni breakpoints que mantener. */
+  --t-hero: clamp(2.6rem, 7vw, 6rem);
+  --t-h2: clamp(1.8rem, 4vw, 3.2rem);
+  --t-h3: clamp(1.15rem, 2vw, 1.6rem);
+  --t-body: clamp(0.98rem, 1.1vw, 1.1rem);
+  --t-eyebrow: clamp(0.7rem, 1vw, 0.78rem);
+
+  /* — Espaciado en escala (ritmo vertical coherente) — */
+  --s1: 0.5rem;
+  --s2: 1rem;
+  --s3: 1.5rem;
+  --s4: 2rem;
+  --s6: 3rem;
+  --s8: 5rem;
+  --s12: 8rem;
+
+  /* — Radios y sombras CÁLIDAS (tintadas de vino, no gris) —
+     POR QUÉ tintar la sombra: una sombra gris sobre paleta terrosa se ve
+     "sucia"; tintarla de vino la integra y eleva el acabado premium. */
+  --r: 16px;
+  --r-lg: 28px;
+  --r-pill: 999px;
+  --shadow-sm: 0 6px 18px -10px rgba(77, 15, 20, 0.4);
+  --shadow: 0 30px 60px -28px rgba(77, 15, 20, 0.5);
+
+  /* Ancho de lectura máximo del contenido centrado. */
+  --maxw: 1240px;
+}
+
+/* ── 2. Reset y base ──────────────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+} /* desplazamiento suave a los anclas (#) */
+body {
+  font-family: var(--sans);
+  background: var(--linen);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* las formas difuminadas no generan scroll lateral */
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* Contenedor centrado reutilizable. */
+.wrap {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 4rem);
+}
+
+/* ── 3. Utilidades ────────────────────────────────────────────────────── */
+
+/* Antetítulo: pequeño, espaciado, en rosa. Marca el inicio de cada bloque. */
+.eyebrow {
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: var(--t-eyebrow);
+  color: var(--rozy);
+}
+
+/* Botones: una sola base + modificadores. POR QUÉ: consistencia y reuso. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 2rem;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  font-weight: 600;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+} /* micro-interacción al pasar el cursor */
+.btn--solid {
+  background: var(--rojo);
+  color: var(--linen);
+  box-shadow: var(--shadow-sm);
+}
+.btn--light {
+  background: var(--linen);
+  color: var(--rojo);
+  box-shadow: var(--shadow-sm);
+}
+.btn--ghost-light {
+  border-color: rgba(238, 228, 218, 0.4);
+  color: var(--linen);
+}
+.btn--ghost {
+  border-color: rgba(77, 15, 20, 0.3);
+  color: var(--rojo);
+}
+
+/* Aparición al hacer scroll: estado inicial oculto; .is-visible (vía JS) lo
+   revela. Si JS no corre, un fallback en index.html lo muestra igualmente. */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Placeholder de imagen: rayas diagonales + leyenda monoespaciada.
+   POR QUÉ así y no un gris plano: comunica "aquí va una foto" de forma
+   intencionada y elegante mientras llega el material real. */
+.ph {
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.ph--oak {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(77, 15, 20, 0.07) 0 14px,
+      transparent 14px 28px
+    ),
+    var(--pale-oak);
+}
+.ph--rozy {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(77, 15, 20, 0.06) 0 16px,
+      transparent 16px 32px
+    ),
+    var(--rozy);
+}
+.ph__cap {
+  font-family: ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--rojo-70);
+}
+
+/* ── 4. Componentes ───────────────────────────────────────────────────── */
+
+/* NAV: fija con vidrio esmerilado. POR QUÉ sticky + blur: marca y "Bolsa"
+   siempre accesibles sin tapar el contenido. */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s3) clamp(1rem, 5vw, 4rem);
+  background: rgba(238, 228, 218, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(77, 15, 20, 0.08);
+}
+.logo {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  color: var(--rojo);
+}
+.logo em {
+  font-style: italic;
+  color: var(--rozy);
+}
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.4rem);
+  flex-wrap: wrap;
+}
+.nav__links a {
+  font-size: 0.92rem;
+  font-weight: 500;
+  opacity: 0.85;
+}
+.nav__links a:hover {
+  opacity: 1;
+}
+.bag {
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(77, 15, 20, 0.2);
+  border-radius: var(--r-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--rojo);
+}
+.bag__count {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--rojo);
+  color: var(--linen);
+  font-size: 0.7rem;
+}
+
+/* HERO A (editorial, fondo vino) ----------------------------------------- */
+.hero-a {
+  position: relative;
+  overflow: hidden;
+  background: var(--rojo);
+  color: var(--linen);
+  padding: clamp(3rem, 7vw, 6rem) clamp(1rem, 5vw, 4rem) clamp(4rem, 8vw, 7rem);
+}
+.hero-a__inner {
+  position: relative;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+/* riseIn anima SOLO el desplazamiento (no la opacidad): si el motor de
+   animaciones se pausa, el contenido del hero sigue visible. */
+.hero-a__text {
+  flex: 1 1 380px;
+  min-width: 300px;
+  animation: riseIn 0.7s ease both;
+}
+.hero__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--t-hero);
+  line-height: 1.02;
+  letter-spacing: -0.5px;
+  margin-bottom: var(--s4);
+}
+.hero__title em {
+  font-style: italic;
+  color: var(--rozy);
+}
+.hero__lead {
+  font-size: var(--t-body);
+  line-height: 1.7;
+  max-width: 46ch;
+  opacity: 0.85;
+  margin: var(--s3) 0 var(--s6);
+}
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+/* Formas difuminadas de fondo: capa "lejana" que da profundidad al 3D. */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.blob--1 {
+  top: -80px;
+  right: 8%;
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, var(--rozy), transparent 70%);
+  opacity: 0.5;
+  filter: blur(8px);
+  animation: flota 9s ease-in-out infinite;
+}
+.blob--2 {
+  bottom: -120px;
+  left: -40px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--pale-oak), transparent 70%);
+  opacity: 0.35;
+  filter: blur(6px);
+  animation: flotaLento 11s ease-in-out infinite;
+}
+
+/* Tarjeta flotante 3D del hero. perspective en el padre + preserve-3d en la
+   tarjeta hacen que las capas internas (badges) "salgan" con translateZ. */
+.hero-a__media {
+  flex: 0 1 420px;
+  min-width: 280px;
+  display: flex;
+  justify-content: center;
+  perspective: 1100px;
+}
+.float-card {
+  position: relative;
+  width: min(380px, 90vw);
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out;
+  animation: flota 7s ease-in-out infinite;
+  will-change: transform;
+}
+.float-card__img {
+  aspect-ratio: 3/4;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0 14px,
+      transparent 14px 28px
+    ),
+    var(--rozy);
+}
+.float-card__img .ph__cap {
+  color: var(--rojo);
+  background: rgba(247, 242, 235, 0.6);
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+}
+.float-badge {
+  position: absolute;
+  left: -18px;
+  bottom: 36px;
+  transform: translateZ(60px);
+  background: var(--cream);
+  color: var(--ink);
+  padding: 0.8rem 1.1rem;
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  font-family: var(--serif);
+  font-style: italic;
+}
+.float-price {
+  position: absolute;
+  right: -14px;
+  top: 32px;
+  transform: translateZ(80px);
+  background: var(--rojo);
+  color: var(--linen);
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--r-pill);
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow);
+}
+
+/* HERO B (boutique, fondo claro y centrado) ------------------------------ */
+.hero-b {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  background: linear-gradient(180deg, var(--cream), var(--linen));
+  padding: clamp(3.5rem, 8vw, 7rem) clamp(1rem, 5vw, 4rem)
+    clamp(3rem, 6vw, 5rem);
+}
+.hero-b__inner {
+  position: relative;
+  max-width: 760px;
+  margin-inline: auto;
+  animation: riseIn 0.7s ease both;
+}
+.hero-b .hero__title {
+  color: var(--rojo);
+}
+.hero-b .hero__lead {
+  margin-inline: auto;
+}
+.blob--3 {
+  top: 10%;
+  left: 6%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, var(--rozy), transparent 70%);
+  opacity: 0.4;
+  filter: blur(4px);
+  animation: flota 10s ease-in-out infinite;
+}
+.blob--4 {
+  bottom: 6%;
+  right: 8%;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, var(--pale-oak), transparent 70%);
+  opacity: 0.45;
+  filter: blur(6px);
+  animation: flotaLento 12s ease-in-out infinite;
+}
+
+/* SECCIÓN + encabezado de bloque -------------------------------------- */
+.section {
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+.section--linen {
+  background: var(--linen);
+}
+.head-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s3);
+  flex-wrap: wrap;
+  max-width: var(--maxw);
+  margin: 0 auto var(--s6);
+  padding-inline: clamp(1rem, 5vw, 4rem);
+}
+.section__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--t-h2);
+  line-height: 1.05;
+  color: var(--rojo);
+}
+.section__title.is-center {
+  text-align: center;
+  margin-bottom: var(--s6);
+}
+.hint {
+  font-family: ui-monospace, monospace;
+  font-size: 0.78rem;
+  color: var(--rojo-70);
+}
+
+/* BRILLO tras una palabra: capa radial difuminada animada, por detrás del
+   texto (z-index 0) y sin capturar clics (pointer-events:none). */
+.glow {
+  position: relative;
+  display: inline-block;
+  font-style: italic;
+}
+.glow::before {
+  content: "";
+  position: absolute;
+  inset: -45% -28%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side,
+    rgba(199, 164, 158, 0.95),
+    rgba(217, 195, 172, 0.45) 55%,
+    transparent 78%
+  );
+  filter: blur(20px);
+  animation: brillo 4.5s ease-in-out infinite;
+}
+.glow > span {
+  position: relative;
+  z-index: 1;
+}
+
+/* CARRUSEL: riel con scroll-snap. POR QUÉ scroll-snap: cada tarjeta "encaja"
+   al deslizar → selección cómoda en táctil y en desktop, sin JS de carrusel. */
+.rail {
+  display: flex;
+  gap: var(--s4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: var(--s2) clamp(1rem, 5vw, 4rem) var(--s4);
+  perspective: 1200px; /* contexto 3D para el tilt de las tarjetas */
+}
+.rail--center {
+  padding-inline: clamp(1rem, 8vw, 8rem);
+}
+/* Scrollbar fino y de marca (la barra por defecto rompe el acabado). */
+.rail {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rozy) transparent;
+}
+.rail::-webkit-scrollbar {
+  height: 6px;
+}
+.rail::-webkit-scrollbar-track {
+  background: transparent;
+}
+.rail::-webkit-scrollbar-thumb {
+  background: var(--rozy);
+  border-radius: 99px;
+}
+
+/* Tarjeta A: foto arriba + datos abajo, sobre crema. */
+.card {
+  flex: 0 0 auto;
+  width: clamp(260px, 72vw, 330px);
+  scroll-snap-align: start;
+  background: var(--cream);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.2s ease-out,
+    box-shadow 0.2s ease-out;
+}
+.card:hover {
+  box-shadow: var(--shadow);
+}
+.card__img {
+  position: relative;
+  aspect-ratio: 3/4;
+}
+.card__img .ph__cap {
+  transform: translateZ(30px);
+}
+.card__tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  transform: translateZ(50px);
+  background: var(--rojo);
+  color: var(--linen);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--r-pill);
+}
+.card__body {
+  padding: var(--s3);
+}
+.card__name {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: var(--t-h3);
+  margin-bottom: 0.3rem;
+}
+.card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card__price {
+  font-weight: 700;
+  color: var(--rojo);
+}
+.card__add {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--rozy);
+}
+
+/* Tarjeta B: vertical con texto sobreimpreso sobre la foto. */
+.card-b {
+  flex: 0 0 auto;
+  width: clamp(250px, 68vw, 310px);
+  scroll-snap-align: center;
+  position: relative;
+  aspect-ratio: 3/4.2;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out;
+}
+.card-b__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(42, 19, 22, 0.78) 0%,
+    rgba(42, 19, 22, 0.1) 45%,
+    transparent 70%
+  );
+}
+.card-b__body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: var(--s3);
+  transform: translateZ(40px);
+  color: var(--linen);
+}
+.card-b__name {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: var(--t-h3);
+  margin-bottom: 0.3rem;
+}
+.card-b__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-b__tag {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--rozy);
+  letter-spacing: 0.04em;
+}
+
+/* EDITORIAL split (A) ---------------------------------------------------- */
+.editorial {
+  max-width: var(--maxw);
+  margin: var(--s8) auto 0;
+  padding-inline: clamp(1rem, 5vw, 4rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+.editorial__img {
+  flex: 1 1 320px;
+  min-width: 280px;
+  aspect-ratio: 4/5;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+}
+.editorial__img .ph__cap {
+  color: var(--rojo);
+}
+.editorial__text {
+  flex: 1 1 340px;
+  min-width: 300px;
+}
+.editorial__text .section__title {
+  margin: var(--s3) 0 var(--s4);
+}
+.editorial__text p {
+  font-size: var(--t-body);
+  line-height: 1.7;
+  opacity: 0.82;
+  max-width: 48ch;
+  margin-bottom: var(--s6);
+}
+.stats {
+  display: flex;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  flex-wrap: wrap;
+}
+.stat__num {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  color: var(--rojo);
+}
+.stat__label {
+  font-size: 0.82rem;
+  opacity: 0.7;
+}
+
+/* LOOKBOOK trío (B) ------------------------------------------------------ */
+.lookbook {
+  max-width: var(--maxw);
+  margin: var(--s8) auto 0;
+  padding-inline: clamp(1rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--s3);
+}
+.lookbook > div {
+  aspect-ratio: 3/4;
+  border-radius: var(--r-lg);
+}
+.lookbook > div:nth-child(2) {
+  margin-top: var(--s6);
+} /* desfase tipo mosaico */
+.lookbook .ph__cap {
+  color: var(--rojo);
+}
+
+/* FUNDADORAS ------------------------------------------------------------- */
+.team {
+  background: var(--rojo);
+  color: var(--linen);
+  padding: clamp(3.5rem, 7vw, 6rem) clamp(1rem, 5vw, 4rem);
+}
+.team__head {
+  text-align: center;
+  margin-bottom: var(--s8);
+}
+.team__head .section__title {
+  color: var(--linen);
+}
+.team__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--s4);
+  perspective: 1200px;
+}
+.member {
+  text-align: center;
+  background: rgba(238, 228, 218, 0.06);
+  border: 1px solid var(--linen-12);
+  border-radius: var(--r-lg);
+  padding: var(--s4) var(--s3);
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out;
+}
+.member__avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  margin: 0 auto var(--s3);
+  display: grid;
+  place-items: center;
+  transform: translateZ(40px);
+  background:
+    repeating-linear-gradient(
+      135deg,
+      var(--linen-12) 0 8px,
+      transparent 8px 16px
+    ),
+    var(--rozy);
+}
+.member__avatar span {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--rojo);
+}
+.member__name {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  transform: translateZ(20px);
+}
+.member__role {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rozy);
+  margin-top: 0.3rem;
+}
+
+/* FOOTER ----------------------------------------------------------------- */
+.footer {
+  background: var(--ink);
+  color: var(--linen);
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1rem, 5vw, 4rem);
+}
+.footer__top {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s6);
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.footer__brand {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  margin-bottom: var(--s2);
+}
+.footer p {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  max-width: 36ch;
+}
+.footer__cols {
+  display: flex;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.footer__col b {
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.footer__col a {
+  opacity: 0.85;
+}
+.footer__legal {
+  max-width: var(--maxw);
+  margin: var(--s6) auto 0;
+  padding-top: var(--s3);
+  border-top: 1px solid var(--linen-12);
+  font-size: 0.78rem;
+  opacity: 0.55;
+}
+
+/* ── 5. Modal y switcher ──────────────────────────────────────────────── */
+
+/* MODAL de vista rápida. POR QUÉ modal y no otra página: en una landing
+   mantiene al usuario en contexto; "Ver en el catálogo" lo lleva a #coleccion.
+   Oculto por defecto con [hidden]; JS le quita el atributo para abrir. */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: var(--s3);
+  background: rgba(42, 19, 22, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: surge 0.25s ease both;
+}
+.modal[hidden] {
+  display: none;
+}
+.modal__card {
+  position: relative;
+  width: min(820px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--cream);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  animation: modalPop 0.35s cubic-bezier(0.2, 0.8, 0.25, 1) both;
+}
+.modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(247, 242, 235, 0.92);
+  color: var(--rojo);
+  font-size: 1.3rem;
+  line-height: 1;
+  box-shadow: var(--shadow-sm);
+}
+.modal__img {
+  flex: 1 1 300px;
+  min-width: 260px;
+  aspect-ratio: 4/5;
+}
+.modal__body {
+  flex: 1 1 320px;
+  min-width: 280px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+.modal__tag {
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--rozy);
+  margin-bottom: var(--s2);
+}
+.modal__name {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--rojo);
+  line-height: 1.1;
+  margin-bottom: var(--s2);
+}
+.modal__price {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--ink);
+  margin-bottom: var(--s3);
+}
+.modal__desc {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  opacity: 0.82;
+  margin-bottom: var(--s3);
+}
+.modal__fabric {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-bottom: var(--s2);
+}
+.modal__sizes {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: var(--s4);
+}
+.size {
+  min-width: 42px;
+  text-align: center;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid rgba(77, 15, 20, 0.25);
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--rojo);
+  background: transparent;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+.size:hover,
+.size.is-active {
+  background: var(--rojo);
+  color: var(--linen);
+}
+.modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+.modal__actions .btn {
+  flex: 1 1 auto;
+}
+
+/* SWITCHER de variaciones: pastilla fija inferior. POR QUÉ abajo-centro:
+   control de revisión accesible sin competir con la nav superior. */
+.switcher {
+  position: fixed;
+  bottom: var(--s3);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  background: rgba(42, 19, 22, 0.92);
+  backdrop-filter: blur(10px);
+  padding: 0.45rem 0.55rem;
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow);
+}
+.switcher__label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rozy);
+  padding-left: 0.6rem;
+}
+.switcher button {
+  border: none;
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--linen);
+  transition: all 0.2s;
+}
+.switcher button.is-active {
+  background: var(--linen);
+  color: var(--rojo);
+}
+
+/* ── 6. Animaciones ───────────────────────────────────────────────────── */
+@keyframes flota {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+@keyframes flotaLento {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(22px);
+  }
+}
+@keyframes surge {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes riseIn {
+  from {
+    transform: translateY(24px);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes brillo {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Respeta a quien prefiere menos movimiento (accesibilidad). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── 7. Ajustes responsive puntuales ──────────────────────────────────── */
+/* La mayoría del layout es fluido (clamp + flex-wrap + grid auto-fit). Solo
+   afinamos un par de cosas en pantallas pequeñas. */
+@media (max-width: 560px) {
+  .nav {
+    gap: var(--s2);
+  }
+  .float-badge {
+    left: 8px;
+    bottom: 16px;
+  }
+  .float-price {
+    right: 8px;
+    top: 16px;
+  }
+  .switcher__label {
+    display: none;
+  } /* gana espacio en móviles estrechos */
+}
