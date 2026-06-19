@@ -1,0 +1,42 @@
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/style.css">
+
+		<title>Contacto</title>
+	</head>
+	<body>
+		<header>
+			<h1>Contáctanos</h1>
+		</header>
+
+		<main>
+			
+
+			<section>
+				<h2>Formulario de contacto</h2>
+
+				<form id="form-contacto" action="https://formspree.io/f/mgobgkaq" method="post">
+					<label for="nombre">Nombre</label>
+					<input type="text" id="nombre" name="nombre" required>
+
+					<label for="email">Correo electrónico</label>
+					<input type="email" id="email" name="email" required>
+
+					<label for="mensaje">Mensaje</label>
+					<textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+
+					<button type="submit">Enviar</button>
+				</form>
+
+				<p id="form-status"></p>
+			</section>
+		</main>
+
+		<script src="../js/contactanos.js"></script>
+	</body>
+</html>
