@@ -1,7 +1,8 @@
 // Importamos nuestras herramientas (funciones) del archivo ux.js
 import { $, $$, initTilt, initReveal } from "./ux.js";
 
-// Un arreglo de objetos que funciona como nuestra base de datos local (inventario).
+// Catálogo de productos: arreglo de objetos que funciona como base de datos local.
+// Cada producto tiene nombre, precio, etiqueta, composición, tallas y descripción.
 const PRODUCTS = [
   {
     name: "Vestido Toscana",
@@ -12,7 +13,42 @@ const PRODUCTS = [
     sizes: ["XS", "S", "M", "L"],
     desc: "Vestido midi en lino lavado, caída fluida y cintura marcada. Frescura natural para el día a día.",
   },
-  // ... (los demás productos siguen la misma estructura) ...
+  {
+    name: "Blazer Arena",
+    price: "$359.000",
+    tag: "Top",
+    cap: "foto · blazer oversize",
+    fabric: "Lana fría 70% · viscosa 30%",
+    sizes: ["S", "M", "L", "XL"],
+    desc: "Blazer oversize de hombro suave y solapa clásica. La pieza que ordena cualquier look.",
+  },
+  {
+    name: "Blusa Rozy",
+    price: "$179.000",
+    tag: "Seda",
+    cap: "foto · blusa seda",
+    fabric: "100% seda satinada",
+    sizes: ["XS", "S", "M", "L"],
+    desc: "Blusa en seda con cuello envolvente y brillo sutil. Cae sobre la piel con ligereza.",
+  },
+  {
+    name: "Falda Linen",
+    price: "$219.000",
+    tag: "Plisada",
+    cap: "foto · falda plisada",
+    fabric: "Mezcla lino · algodón",
+    sizes: ["XS", "S", "M", "L"],
+    desc: "Falda plisada de largo midi y movimiento amplio. Elegancia relajada en cada paso.",
+  },
+  {
+    name: "Abrigo Vino",
+    price: "$489.000",
+    tag: "Edición",
+    cap: "foto · abrigo lana",
+    fabric: "Lana virgen 90% · cashmere 10%",
+    sizes: ["S", "M", "L"],
+    desc: "Abrigo largo en lana y cachemir, forro completo y línea recta. Para una temporada larga.",
+  },
   {
     name: "Pantalón Oak",
     price: "$239.000",
@@ -124,8 +160,8 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeModal();
 });
 
-// Acción para el botón de ir al catálogo: Cierra el modal y navega a la sección #coleccion.
+// Acción para el botón "Ver en el catálogo": cierra el modal y navega a la página del catálogo.
 $("#goCatalogo").addEventListener("click", () => {
   closeModal();
-  window.location.hash = "#coleccion";
+  window.location.href = "./catalogo/index.html";
 });

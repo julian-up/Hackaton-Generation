@@ -398,48 +398,6 @@ button {
   box-shadow: var(--shadow);
 }
 
-/* HERO B (boutique, fondo claro y centrado) ------------------------------ */
-.hero-b {
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-  background: linear-gradient(180deg, var(--cream), var(--linen));
-  padding: clamp(3.5rem, 8vw, 7rem) clamp(1rem, 5vw, 4rem)
-    clamp(3rem, 6vw, 5rem);
-}
-.hero-b__inner {
-  position: relative;
-  max-width: 760px;
-  margin-inline: auto;
-  animation: riseIn 0.7s ease both;
-}
-.hero-b .hero__title {
-  color: var(--rojo);
-}
-.hero-b .hero__lead {
-  margin-inline: auto;
-}
-.blob--3 {
-  top: 10%;
-  left: 6%;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, var(--rozy), transparent 70%);
-  opacity: 0.4;
-  filter: blur(4px);
-  animation: flota 10s ease-in-out infinite;
-}
-.blob--4 {
-  bottom: 6%;
-  right: 8%;
-  width: 260px;
-  height: 260px;
-  background: radial-gradient(circle, var(--pale-oak), transparent 70%);
-  opacity: 0.45;
-  filter: blur(6px);
-  animation: flotaLento 12s ease-in-out infinite;
-}
-
 /* SECCIÓN + encabezado de bloque -------------------------------------- */
 .section {
   padding: clamp(3rem, 6vw, 5rem) 0;
@@ -510,9 +468,6 @@ button {
   scroll-snap-type: x mandatory;
   padding: var(--s2) clamp(1rem, 5vw, 4rem) var(--s4);
   perspective: 1200px; /* contexto 3D para el tilt de las tarjetas */
-}
-.rail--center {
-  padding-inline: clamp(1rem, 8vw, 8rem);
 }
 /* Scrollbar fino y de marca (la barra por defecto rompe el acabado). */
 .rail {
@@ -593,58 +548,7 @@ button {
   color: var(--rozy);
 }
 
-/* Tarjeta B: vertical con texto sobreimpreso sobre la foto. */
-.card-b {
-  flex: 0 0 auto;
-  width: clamp(250px, 68vw, 310px);
-  scroll-snap-align: center;
-  position: relative;
-  aspect-ratio: 3/4.2;
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  cursor: pointer;
-  transform-style: preserve-3d;
-  transition: transform 0.2s ease-out;
-}
-.card-b__scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(42, 19, 22, 0.78) 0%,
-    rgba(42, 19, 22, 0.1) 45%,
-    transparent 70%
-  );
-}
-.card-b__body {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: var(--s3);
-  transform: translateZ(40px);
-  color: var(--linen);
-}
-.card-b__name {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: var(--t-h3);
-  margin-bottom: 0.3rem;
-}
-.card-b__row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.card-b__tag {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--rozy);
-  letter-spacing: 0.04em;
-}
-
-/* EDITORIAL split (A) ---------------------------------------------------- */
+/* EDITORIAL split ---------------------------------------------------- */
 .editorial {
   max-width: var(--maxw);
   margin: var(--s8) auto 0;
@@ -691,26 +595,6 @@ button {
 .stat__label {
   font-size: 0.82rem;
   opacity: 0.7;
-}
-
-/* LOOKBOOK trío (B) ------------------------------------------------------ */
-.lookbook {
-  max-width: var(--maxw);
-  margin: var(--s8) auto 0;
-  padding-inline: clamp(1rem, 5vw, 4rem);
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--s3);
-}
-.lookbook > div {
-  aspect-ratio: 3/4;
-  border-radius: var(--r-lg);
-}
-.lookbook > div:nth-child(2) {
-  margin-top: var(--s6);
-} /* desfase tipo mosaico */
-.lookbook .ph__cap {
-  color: var(--rojo);
 }
 
 /* FUNDADORAS ------------------------------------------------------------- */
@@ -775,6 +659,173 @@ button {
   margin-top: 0.3rem;
 }
 
+/* QUIÉNES SOMOS ---------------------------------------------------------- */
+
+/* Hero del about: misma estética vino del hero principal, centrado. */
+.about-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--rojo);
+  color: var(--linen);
+  text-align: center;
+  padding: clamp(4rem, 8vw, 7rem) 0;
+}
+.about-hero .hero__lead {
+  margin-inline: auto;
+}
+
+/* Bloques de historia: layout alternado imagen/texto. */
+.story {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+  margin-bottom: var(--s8);
+}
+.story:last-child {
+  margin-bottom: 0;
+}
+.story--reverse {
+  flex-direction: row-reverse;
+}
+.story__img {
+  flex: 1 1 320px;
+  min-width: 280px;
+  aspect-ratio: 4/3;
+  border-radius: var(--r-lg);
+}
+.story__text {
+  flex: 1 1 340px;
+  min-width: 300px;
+}
+.story__text h3 {
+  font-family: var(--serif);
+  font-size: var(--t-h2);
+  color: var(--rojo);
+  margin-bottom: var(--s3);
+}
+.story__text p {
+  font-size: var(--t-body);
+  line-height: 1.7;
+  opacity: 0.82;
+}
+
+/* Badges de año en el timeline. */
+.story__badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--r-pill);
+  margin-bottom: var(--s3);
+}
+.story__badge--dark {
+  background: var(--rojo);
+  color: var(--linen);
+}
+.story__badge--warn {
+  background: var(--rozy);
+  color: var(--rojo);
+}
+.story__badge--ok {
+  background: rgba(46, 125, 50, 0.12);
+  color: #2e7d32;
+}
+
+/* Alertas dentro del timeline. */
+.story__alert {
+  padding: var(--s3);
+  border-radius: var(--r);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-top: var(--s3);
+}
+.story__alert--warn {
+  background: rgba(199, 164, 158, 0.18);
+  border-left: 3px solid var(--rozy);
+}
+.story__alert--ok {
+  background: rgba(46, 125, 50, 0.06);
+  border-left: 3px solid #2e7d32;
+}
+
+/* Lista de logros con check marks. */
+.story__list {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--s3);
+}
+.story__list li {
+  padding: 0.4rem 0;
+  font-size: 0.95rem;
+}
+.story__list li::before {
+  content: "\2713";
+  color: var(--rozy);
+  font-weight: 700;
+  margin-right: 0.6rem;
+}
+
+/* Grid de tarjetas de valores. */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--s4);
+  perspective: 1200px;
+}
+.value-item {
+  background: var(--cream);
+  border-radius: var(--r-lg);
+  padding: var(--s4) var(--s3);
+  text-align: center;
+  border: 1px solid rgba(77, 15, 20, 0.06);
+  transform-style: preserve-3d;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.value-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+.value-item h4 {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  color: var(--rojo);
+  margin-bottom: 0.5rem;
+}
+.value-item p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.75;
+}
+.value-sym {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  color: var(--rozy);
+  margin-bottom: var(--s2);
+}
+
+/* Sección de estadísticas. */
+.about-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  text-align: center;
+}
+.about-stats > div {
+  flex: 0 1 180px;
+}
+
+/* CTA final del about. */
+.about-cta {
+  text-align: center;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
 /* FOOTER ----------------------------------------------------------------- */
 .footer {
   background: var(--ink);
@@ -830,7 +881,7 @@ button {
   opacity: 0.55;
 }
 
-/* ── 5. Modal y switcher ──────────────────────────────────────────────── */
+/* ── 5. Modal ─────────────────────────────────────────────────────────── */
 
 /* MODAL de vista rápida. POR QUÉ modal y no otra página: en una landing
    mantiene al usuario en contexto; "Ver en el catálogo" lo lleva a #coleccion.
@@ -954,45 +1005,6 @@ button {
   flex: 1 1 auto;
 }
 
-/* SWITCHER de variaciones: pastilla fija inferior. POR QUÉ abajo-centro:
-   control de revisión accesible sin competir con la nav superior. */
-.switcher {
-  position: fixed;
-  bottom: var(--s3);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  gap: var(--s2);
-  background: rgba(42, 19, 22, 0.92);
-  backdrop-filter: blur(10px);
-  padding: 0.45rem 0.55rem;
-  border-radius: var(--r-pill);
-  box-shadow: var(--shadow);
-}
-.switcher__label {
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--rozy);
-  padding-left: 0.6rem;
-}
-.switcher button {
-  border: none;
-  font-weight: 600;
-  font-size: 0.82rem;
-  padding: 0.5rem 1.1rem;
-  border-radius: var(--r-pill);
-  background: transparent;
-  color: var(--linen);
-  transition: all 0.2s;
-}
-.switcher button.is-active {
-  background: var(--linen);
-  color: var(--rojo);
-}
-
 /* ── 6. Animaciones ───────────────────────────────────────────────────── */
 @keyframes flota {
   0%,
@@ -1080,7 +1092,4 @@ button {
     right: 8px;
     top: 16px;
   }
-  .switcher__label {
-    display: none;
-  } /* gana espacio en móviles estrechos */
 }

@@ -9,15 +9,15 @@
 
   <header class="header">
     <nav class="navbar" aria-label="Navegación principal">
-      <a href="/index.html" class="navbar__logo">TrendyShop</a>
+      <a href="../index.html" class="navbar__logo">TrendyShop</a>
 
       <ul class="navbar__lista">
-        <li><a href="/index.html">Inicio</a></li>
-        <li><a href="/catalogo/index.html">Catálogo</a></li>
-        <li><a href="/quienes-somos/index.html">Quiénes Somos</a></li>
-        <li><a href="/contactanos/index.html">Contáctanos</a></li>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="../catalogo/index.html">Catálogo</a></li>
+        <li><a href="../quienes-somos/index.html">Quiénes Somos</a></li>
+        <li><a href="../contactanos/index.html">Contáctanos</a></li>
         <li>
-          <a href="/carrito/index.html" class="navbar__carrito" aria-current="page">
+          <a href="../carrito/index.html" class="navbar__carrito" aria-current="page">
             Carrito
             <span id="contador-carrito" class="navbar__contador" hidden>0</span>
           </a>
@@ -30,7 +30,7 @@
     <h1 class="carrito-page__titulo">Tu Carrito de Compras</h1>
 
     <p id="carrito-vacio" class="carrito-vacio" hidden>
-      Tu carrito está vacío. ¡Explora nuestro <a href="/catalogo/index.html">catálogo</a> y encuentra algo que te encante!
+      Tu carrito está vacío. ¡Explora nuestro <a href="../catalogo/index.html">catálogo</a> y encuentra algo que te encante!
     </p>
 
     <section id="carrito-items" class="carrito-items" aria-live="polite">
@@ -49,7 +49,7 @@
         <button type="button" id="btn-comprar" class="btn btn-comprar">
           Comprar
         </button>
-        <a href="/catalogo/index.html" class="btn btn-seguir-comprando">
+        <a href="../catalogo/index.html" class="btn btn-seguir-comprando">
           Seguir Comprando
         </a>
       </div>
@@ -78,7 +78,7 @@
   </div>
 
   <script type="module">
-    import { inicializarCarrito, obtenerInstanciaCarrito } from "/js/app.js";
+    import { inicializarCarrito, obtenerInstanciaCarrito } from "../js/app.js";
 
     document.addEventListener("DOMContentLoaded", () => {
       inicializarCarrito();
@@ -115,7 +115,7 @@
         const carrito = obtenerInstanciaCarrito();
         carrito.vaciarCarrito();
         modal.classList.remove("modal-overlay--visible");
-        import("/js/ui.js").then(({ renderCarrito, mostrarToast }) => {
+        import("../js/ui.js").then(({ renderCarrito, mostrarToast }) => {
           renderCarrito(carrito);
           mostrarToast("¡Compra realizada con éxito! Gracias por tu pedido.", "exito");
         });
