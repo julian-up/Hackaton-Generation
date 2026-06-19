@@ -201,14 +201,12 @@
       </div>
     </footer>
 
-    <!-- ═══ MODAL de producto (oculto con [hidden]) ═══ -->
+    <!-- ═══ MODAL de producto ═══ -->
     <div class="modal" id="modal" hidden>
       <div class="modal__card">
-        <button class="modal__close" id="modalClose" aria-label="Cerrar">
-          ×
-        </button>
-        <div class="modal__img ph ph--oak">
-          <span class="ph__cap" id="mCap"></span>
+        <button class="modal__close" id="modalClose" aria-label="Cerrar">×</button>
+        <div class="modal__img">
+          <img id="mImg" alt="" />
         </div>
         <div class="modal__body">
           <div class="modal__tag" id="mTag"></div>
@@ -218,10 +216,8 @@
           <div class="modal__fabric" id="mFabric"></div>
           <div class="modal__sizes" id="mSizes"></div>
           <div class="modal__actions">
-            <button class="btn btn--solid">Añadir a la bolsa</button>
-            <button class="btn btn--ghost" id="goCatalogo">
-              Ver en el catálogo →
-            </button>
+            <button class="btn btn--solid" id="btnAddToBag">Añadir a la bolsa</button>
+            <button class="btn btn--ghost" id="goCatalogo">Ver en el catálogo →</button>
           </div>
         </div>
       </div>

@@ -506,9 +506,13 @@ button {
 .card__img {
   position: relative;
   aspect-ratio: 3/4;
+  overflow: hidden;
+  background: var(--pale-oak);
 }
-.card__img .ph__cap {
-  transform: translateZ(30px);
+.card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .card__tag {
   position: absolute;
@@ -932,6 +936,13 @@ button {
   flex: 1 1 300px;
   min-width: 260px;
   aspect-ratio: 4/5;
+  overflow: hidden;
+  background: var(--pale-oak);
+}
+.modal__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .modal__body {
   flex: 1 1 320px;
@@ -1003,6 +1014,377 @@ button {
 }
 .modal__actions .btn {
   flex: 1 1 auto;
+}
+
+/* ── CATÁLOGO ─────────────────────────────────────────────────────────── */
+
+.cat-hero {
+  background: var(--rojo);
+  color: var(--linen);
+  padding: clamp(3rem, 7vw, 5rem) 0;
+}
+.cat-hero .hero__lead {
+  max-width: 52ch;
+}
+
+/* Filtros de categoría: fila de botones pill. */
+.cat-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-bottom: var(--s6);
+}
+.cat-filter {
+  padding: 0.55rem 1.4rem;
+  border: 1px solid rgba(77, 15, 20, 0.2);
+  border-radius: var(--r-pill);
+  background: transparent;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--rojo);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+.cat-filter:hover {
+  background: rgba(77, 15, 20, 0.06);
+}
+.cat-filter.is-active {
+  background: var(--rojo);
+  color: var(--linen);
+  border-color: var(--rojo);
+}
+
+/* Grid de productos del catálogo. */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--s4);
+}
+
+/* Tarjeta de producto del catálogo. */
+.cat-card {
+  background: var(--cream);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.cat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+.cat-card__img {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: var(--pale-oak);
+}
+.cat-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.cat-card:hover .cat-card__img img {
+  transform: scale(1.04);
+}
+.cat-card__tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: var(--rojo);
+  color: var(--linen);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--r-pill);
+}
+.cat-card__body {
+  padding: var(--s3);
+}
+.cat-card__cat {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--rozy);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.cat-card__name {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: var(--t-h3);
+  color: var(--rojo);
+  margin-bottom: 0.4rem;
+}
+.cat-card__desc {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  opacity: 0.7;
+  margin-bottom: var(--s3);
+}
+.cat-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+}
+.cat-card__price {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--rojo);
+}
+.cat-card__btn {
+  padding: 0.6rem 1.4rem;
+  font-size: 0.82rem;
+}
+
+/* ── CARRITO ──────────────────────────────────────────────────────────── */
+
+.cart-empty {
+  text-align: center;
+  padding: var(--s8) 0;
+  opacity: 0.7;
+}
+.cart-empty p {
+  font-size: var(--t-h3);
+  margin-bottom: var(--s4);
+}
+
+.cart-item {
+  display: flex;
+  gap: var(--s3);
+  align-items: center;
+  padding: var(--s3) 0;
+  border-bottom: 1px solid rgba(77, 15, 20, 0.1);
+}
+.cart-item__img {
+  width: 90px;
+  height: 110px;
+  flex-shrink: 0;
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--pale-oak);
+}
+.cart-item__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cart-item__info {
+  flex: 1;
+  min-width: 0;
+}
+.cart-item__name {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: var(--rojo);
+  margin-bottom: 0.25rem;
+}
+.cart-item__meta {
+  font-size: 0.82rem;
+  opacity: 0.6;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.cart-item__price {
+  font-weight: 700;
+  color: var(--ink);
+}
+.cart-item__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+  flex-shrink: 0;
+}
+.cart-item__qty-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(77, 15, 20, 0.2);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--rojo);
+  font-size: 1rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  transition: background 0.15s ease;
+}
+.cart-item__qty-btn:hover {
+  background: rgba(77, 15, 20, 0.06);
+}
+.cart-item__qty {
+  min-width: 28px;
+  text-align: center;
+  font-weight: 700;
+}
+.cart-item__remove {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--rozy);
+  font-size: 0.9rem;
+  margin-left: var(--s1);
+  transition: color 0.15s ease;
+}
+.cart-item__remove:hover {
+  color: var(--rojo);
+}
+
+.cart-summary {
+  margin-top: var(--s4);
+  padding-top: var(--s4);
+  border-top: 2px solid var(--rojo);
+}
+.cart-summary__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--s4);
+}
+.cart-summary__total {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  color: var(--rojo);
+  font-weight: 700;
+}
+.cart-summary__actions {
+  display: flex;
+  gap: var(--s2);
+  flex-wrap: wrap;
+}
+
+.cart-success {
+  text-align: center;
+  padding: var(--s8) 0;
+}
+.cart-success h2 {
+  font-family: var(--serif);
+  font-size: var(--t-h2);
+  color: var(--rojo);
+  margin-bottom: var(--s2);
+}
+.cart-success p {
+  opacity: 0.75;
+  margin-bottom: var(--s1);
+}
+
+/* ── CONTACTO ─────────────────────────────────────────────────────────── */
+
+.contact-hero {
+  background: var(--rojo);
+  color: var(--linen);
+  padding: clamp(3rem, 7vw, 5rem) 0;
+}
+.contact-hero .hero__lead {
+  max-width: 52ch;
+}
+
+.contact-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: flex-start;
+}
+.contact-form {
+  flex: 1 1 400px;
+  min-width: 300px;
+}
+.contact-info {
+  flex: 0 1 320px;
+  min-width: 260px;
+  background: var(--cream);
+  border-radius: var(--r-lg);
+  padding: var(--s4);
+}
+.contact-info h3 {
+  font-family: var(--serif);
+  font-size: var(--t-h3);
+  color: var(--rojo);
+  margin-bottom: var(--s4);
+}
+.contact-info__item {
+  margin-bottom: var(--s3);
+}
+.contact-info__item strong {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 0.2rem;
+}
+.contact-info__item span {
+  font-size: 0.95rem;
+}
+
+.contact-field {
+  margin-bottom: var(--s3);
+}
+.contact-field label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.88rem;
+  margin-bottom: 0.4rem;
+  color: var(--ink);
+}
+.contact-field input,
+.contact-field textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(77, 15, 20, 0.2);
+  border-radius: var(--r);
+  background: var(--cream);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--ink);
+  transition: border-color 0.2s ease;
+}
+.contact-field input:focus,
+.contact-field textarea:focus {
+  outline: none;
+  border-color: var(--rojo);
+}
+.contact-field textarea {
+  resize: vertical;
+}
+.contact-status {
+  margin-top: var(--s2);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ── TOAST ─────────────────────────────────────────────────────────────── */
+
+.toast-msg {
+  position: fixed;
+  bottom: var(--s4);
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 90;
+  background: var(--rojo);
+  color: var(--linen);
+  padding: 0.85rem 1.8rem;
+  border-radius: var(--r-pill);
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+  pointer-events: none;
+}
+.toast-msg.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* ── 6. Animaciones ───────────────────────────────────────────────────── */

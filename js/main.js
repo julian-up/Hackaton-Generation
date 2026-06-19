@@ -1,167 +1,124 @@
-// Importamos nuestras herramientas (funciones) del archivo ux.js
+// Lógica de la página principal (index.html).
+// Renderiza las tarjetas del carrusel, maneja el modal y conecta con el carrito.
 import { $, $$, initTilt, initReveal } from "./ux.js";
+import { PRODUCTS } from "./data.js";
+import { addItem, updateBadges } from "./cart.js";
 
-// Catálogo de productos: arreglo de objetos que funciona como base de datos local.
-// Cada producto tiene nombre, precio, etiqueta, composición, tallas y descripción.
-const PRODUCTS = [
-  {
-    name: "Vestido Toscana",
-    price: "$289.000",
-    tag: "Nuevo",
-    cap: "foto · vestido lino",
-    fabric: "100% lino europeo",
-    sizes: ["XS", "S", "M", "L"],
-    desc: "Vestido midi en lino lavado, caída fluida y cintura marcada. Frescura natural para el día a día.",
-  },
-  {
-    name: "Blazer Arena",
-    price: "$359.000",
-    tag: "Top",
-    cap: "foto · blazer oversize",
-    fabric: "Lana fría 70% · viscosa 30%",
-    sizes: ["S", "M", "L", "XL"],
-    desc: "Blazer oversize de hombro suave y solapa clásica. La pieza que ordena cualquier look.",
-  },
-  {
-    name: "Blusa Rozy",
-    price: "$179.000",
-    tag: "Seda",
-    cap: "foto · blusa seda",
-    fabric: "100% seda satinada",
-    sizes: ["XS", "S", "M", "L"],
-    desc: "Blusa en seda con cuello envolvente y brillo sutil. Cae sobre la piel con ligereza.",
-  },
-  {
-    name: "Falda Linen",
-    price: "$219.000",
-    tag: "Plisada",
-    cap: "foto · falda plisada",
-    fabric: "Mezcla lino · algodón",
-    sizes: ["XS", "S", "M", "L"],
-    desc: "Falda plisada de largo midi y movimiento amplio. Elegancia relajada en cada paso.",
-  },
-  {
-    name: "Abrigo Vino",
-    price: "$489.000",
-    tag: "Edición",
-    cap: "foto · abrigo lana",
-    fabric: "Lana virgen 90% · cashmere 10%",
-    sizes: ["S", "M", "L"],
-    desc: "Abrigo largo en lana y cachemir, forro completo y línea recta. Para una temporada larga.",
-  },
-  {
-    name: "Pantalón Oak",
-    price: "$239.000",
-    tag: "Sastre",
-    cap: "foto · pantalón sastre",
-    fabric: "Crepé reciclado",
-    sizes: ["XS", "S", "M", "L", "XL"],
-    desc: "Pantalón de sastre de pierna recta y tiro alto. Estiliza y combina con todo el armario.",
-  },
-];
-
-// Función para crear el código HTML de una sola tarjeta de producto.
-// Recibe 'p' (el producto) e 'i' (el índice o posición del producto en el arreglo).
+// ── Carrusel de productos ────────────────────────────────────────────────
+// Genera el HTML de cada tarjeta con su imagen real.
 function renderCard(p, i) {
-  // Construye y retorna un bloque de texto HTML concatenando las propiedades del producto.
-  // Nota el atributo 'data-i="' + i + '"', que guarda el número de índice para usarlo después.
   return (
-    '<article class="card" data-tilt data-i="' +
-    i +
-    '">' +
-    '<div class="card__img ph ph--oak"><span class="ph__cap">' +
-    p.cap +
-    "</span>" +
-    '<span class="card__tag">' +
-    p.tag +
-    "</span></div>" +
-    '<div class="card__body"><h3 class="card__name">' +
-    p.name +
-    "</h3>" +
-    '<div class="card__row"><span class="card__price">' +
-    p.price +
-    "</span>" +
-    '<span class="card__add">Añadir +</span></div></div></article>'
+    '<article class="card" data-tilt data-i="' + i + '">' +
+      '<div class="card__img">' +
+        '<img src="./img/' + p.image + '" alt="' + p.name + '">' +
+        '<span class="card__tag">' + p.tag + '</span>' +
+      '</div>' +
+      '<div class="card__body">' +
+        '<h3 class="card__name">' + p.name + '</h3>' +
+        '<div class="card__row">' +
+          '<span class="card__price">' + p.price + '</span>' +
+          '<span class="card__add">Añadir +</span>' +
+        '</div>' +
+      '</div>' +
+    '</article>'
   );
 }
 
-// 1. PRODUCTS.map(renderCard): Transforma cada producto del arreglo en un texto HTML.
-// 2. .join(""): Une todos esos textos en uno solo, sin comas.
-// 3. $("#rail").innerHTML: Inyecta todo ese HTML dentro del contenedor con el id "rail".
+// Inyecta las tarjetas en el riel del carrusel.
 $("#rail").innerHTML = PRODUCTS.map(renderCard).join("");
 
-// Activamos los efectos visuales que importamos arriba para estos nuevos elementos.
+// Inicializa los efectos de tilt 3D y aparición al scroll.
 initTilt();
 initReveal();
 
-// ── Modal ─────────────────────────────────────────────────────────────────
-const modal = $("#modal"); // Seleccionamos la ventana emergente (modal).
+// Actualiza los badges del carrito al cargar la página.
+updateBadges();
 
-// Función para abrir el modal y llenarlo con la información de un producto específico (p).
+// ── Modal de producto ────────────────────────────────────────────────────
+const modal = $("#modal");
+let currentProduct = null;
+
+// Abre el modal con la info y la imagen del producto seleccionado.
 function openModal(p) {
-  // Rellenamos cada parte del modal con los datos del producto seleccionado.
-  $("#mCap").textContent = p.cap;
+  currentProduct = p;
+  $("#mImg").src = "./img/" + p.image;
+  $("#mImg").alt = p.name;
   $("#mTag").textContent = p.tag;
   $("#mName").textContent = p.name;
   $("#mPrice").textContent = p.price;
   $("#mDesc").textContent = p.desc;
   $("#mFabric").textContent = "Composición · " + p.fabric;
 
-  // Transformamos el arreglo de tallas en botones HTML.
+  // Genera botones de talla y los inyecta.
   $("#mSizes").innerHTML = p.sizes
     .map((s) => '<button class="size">' + s + "</button>")
     .join("");
 
-  // Mostramos el modal quitando su estado oculto.
   modal.hidden = false;
 }
 
-// Función para cerrar el modal.
 function closeModal() {
   modal.hidden = true;
+  currentProduct = null;
 }
 
-// Función para escuchar los clics en el contenedor principal de las tarjetas (el "rail").
-// Esto se llama "Delegación de Eventos".
-function wireRail(railId) {
-  $(railId).addEventListener("click", (e) => {
-    // Busca si lo que se hizo clic está dentro de una tarjeta con el atributo 'data-i'.
-    const card = e.target.closest("[data-i]");
-    // Si se hizo clic en una tarjeta, obtenemos su índice (+card.getAttribute) y abrimos el modal con ese producto.
-    if (card) openModal(PRODUCTS[+card.getAttribute("data-i")]);
-  });
-}
-// Ejecutamos la función para el contenedor de productos.
-wireRail("#rail");
+// Delegación de eventos: un clic en cualquier tarjeta del riel abre su modal.
+$("#rail").addEventListener("click", (e) => {
+  const card = e.target.closest("[data-i]");
+  if (card) openModal(PRODUCTS[+card.getAttribute("data-i")]);
+});
 
-// Escucha clics en la sección de tallas dentro del modal.
+// Selección de talla: resalta la talla elegida.
 $("#mSizes").addEventListener("click", (e) => {
-  // Si no hicimos clic en un botón de talla, ignoramos la acción.
   if (!e.target.classList.contains("size")) return;
-  // Le quitamos la clase 'is-active' a TODAS las tallas...
   $$(".size", modal).forEach((s) => s.classList.remove("is-active"));
-  // ...y se la agregamos SOLO a la talla en la que acabamos de hacer clic.
   e.target.classList.add("is-active");
 });
 
-// Cierra el modal si hacemos clic en el botón de cerrar.
-$("#modalClose").addEventListener("click", closeModal);
+// Botón "Añadir a la bolsa": agrega al carrito con la talla seleccionada.
+$("#btnAddToBag").addEventListener("click", () => {
+  if (!currentProduct) return;
+  const sizeBtn = $(".size.is-active", modal);
+  const size = sizeBtn ? sizeBtn.textContent : currentProduct.sizes[0];
 
-// Cierra el modal si hacemos clic fuera de la tarjeta (en el fondo oscuro).
+  addItem({
+    id: currentProduct.id,
+    name: currentProduct.name,
+    price: currentProduct.price,
+    numPrice: currentProduct.numPrice,
+    image: currentProduct.image,
+    size: size,
+  });
+
+  closeModal();
+  showToast(currentProduct.name + " (talla " + size + ") añadido a la bolsa");
+});
+
+// Cerrar modal: botón X, clic en fondo, tecla Escape.
+$("#modalClose").addEventListener("click", closeModal);
 modal.addEventListener("click", (e) => {
   if (e.target === modal) closeModal();
 });
-
-// Evita que un clic DENTRO de la tarjeta del modal se propague hacia el fondo y lo cierre por accidente.
 $(".modal__card").addEventListener("click", (e) => e.stopPropagation());
-
-// Cierra el modal si el usuario presiona la tecla "Escape" en su teclado.
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeModal();
 });
 
-// Acción para el botón "Ver en el catálogo": cierra el modal y navega a la página del catálogo.
+// "Ver en el catálogo" cierra el modal y navega a la página del catálogo.
 $("#goCatalogo").addEventListener("click", () => {
   closeModal();
   window.location.href = "./catalogo/index.html";
 });
+
+// ── Toast de notificación ────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.createElement("div");
+  t.className = "toast-msg";
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(() => t.classList.add("is-visible"));
+  setTimeout(() => {
+    t.classList.remove("is-visible");
+    setTimeout(() => t.remove(), 300);
+  }, 2200);
+}

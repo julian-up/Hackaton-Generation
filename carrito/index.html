@@ -1,131 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TrendyShop | Carrito de Compras</title>
-</head>
-<body>
-
-  <header class="header">
-    <nav class="navbar" aria-label="Navegación principal">
-      <a href="../index.html" class="navbar__logo">TrendyShop</a>
-
-      <ul class="navbar__lista">
-        <li><a href="../index.html">Inicio</a></li>
-        <li><a href="../catalogo/index.html">Catálogo</a></li>
-        <li><a href="../quienes-somos/index.html">Quiénes Somos</a></li>
-        <li><a href="../contactanos/index.html">Contáctanos</a></li>
-        <li>
-          <a href="../carrito/index.html" class="navbar__carrito" aria-current="page">
-            Carrito
-            <span id="contador-carrito" class="navbar__contador" hidden>0</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </header>
-
-  <main class="carrito-page">
-    <h1 class="carrito-page__titulo">Tu Carrito de Compras</h1>
-
-    <p id="carrito-vacio" class="carrito-vacio" hidden>
-      Tu carrito está vacío. ¡Explora nuestro <a href="../catalogo/index.html">catálogo</a> y encuentra algo que te encante!
-    </p>
-
-    <section id="carrito-items" class="carrito-items" aria-live="polite">
-    </section>
-
-    <section class="carrito-resumen" aria-label="Resumen de la compra">
-      <div class="carrito-resumen__total-linea">
-        <span class="carrito-resumen__label">Total:</span>
-        <span id="carrito-total" class="carrito-resumen__total">$0.00</span>
-      </div>
-
-      <div class="carrito-resumen__acciones">
-        <button type="button" id="btn-vaciar-carrito" class="btn btn-vaciar">
-          Vaciar Carrito
-        </button>
-        <button type="button" id="btn-comprar" class="btn btn-comprar">
-          Comprar
-        </button>
-        <a href="../catalogo/index.html" class="btn btn-seguir-comprando">
-          Seguir Comprando
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TrendyShop · Carrito</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Noto+Serif+Display:ital,opsz,wght@0,10..72,400;0,10..72,500;1,10..72,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- ═══ NAV ═══ -->
+    <header class="nav">
+      <a href="../index.html" class="logo">Trendy<em>Shop</em></a>
+      <nav class="nav__links">
+        <a href="../catalogo/index.html">Catálogo</a>
+        <a href="../quienes-somos/index.html">Quiénes Somos</a>
+        <a href="../contactanos/index.html">Contacto</a>
+        <a href="../carrito/index.html" class="bag">
+          Carrito <span class="bag__count">0</span>
         </a>
+      </nav>
+    </header>
+
+    <!-- ═══ CARRITO ═══ -->
+    <section class="section">
+      <div class="wrap">
+        <div class="eyebrow">Tu selección</div>
+        <h1 class="section__title" style="margin-top: var(--s2); margin-bottom: var(--s6)">
+          Bolsa de compras
+        </h1>
+
+        <!-- Items del carrito (se inyectan desde JS) -->
+        <div id="cart-items"></div>
+
+        <!-- Mensaje cuando el carrito está vacío -->
+        <div id="cart-empty" class="cart-empty" hidden>
+          <p>Tu bolsa está vacía.</p>
+          <a href="../catalogo/index.html" class="btn btn--solid">Explorar catálogo</a>
+        </div>
+
+        <!-- Resumen y acciones -->
+        <div id="cart-summary" class="cart-summary" hidden>
+          <div class="cart-summary__row">
+            <span>Total</span>
+            <span class="cart-summary__total" id="cart-total">$0</span>
+          </div>
+          <div class="cart-summary__actions">
+            <button class="btn btn--ghost" id="btn-clear">Vaciar bolsa</button>
+            <button class="btn btn--solid" id="btn-buy">Confirmar compra</button>
+          </div>
+        </div>
       </div>
     </section>
-  </main>
 
-  <div id="toast-container" class="toast-container" aria-live="assertive"></div>
-
-  <footer class="footer">
-    <p>&copy; 2026 TrendyShop. Todos los derechos reservados.</p>
-  </footer>
-
-  <!-- Modal de confirmación de compra -->
-  <div id="modal-compra" class="modal-overlay">
-    <div class="modal">
-      <h2 class="modal__titulo">Confirmar compra</h2>
-      <p class="modal__descripcion">Estás a punto de realizar tu pedido. ¿Todo listo?</p>
-      <div id="modal-resumen" class="modal__resumen"></div>
-      <button type="button" id="modal-btn-confirmar" class="btn btn-confirmar">
-        Confirmar pedido
-      </button>
-      <button type="button" id="modal-btn-cancelar" class="btn btn-cancelar">
-        Cancelar
-      </button>
-    </div>
-  </div>
-
-  <script type="module">
-    import { inicializarCarrito, obtenerInstanciaCarrito } from "../js/app.js";
-
-    document.addEventListener("DOMContentLoaded", () => {
-      inicializarCarrito();
-
-      const modal = document.getElementById("modal-compra");
-      const resumen = document.getElementById("modal-resumen");
-      const btnComprar = document.getElementById("btn-comprar");
-      const btnConfirmar = document.getElementById("modal-btn-confirmar");
-      const btnCancelar = document.getElementById("modal-btn-cancelar");
-
-      btnComprar.addEventListener("click", () => {
-        const carrito = obtenerInstanciaCarrito();
-        if (!carrito || carrito.estaVacio()) return;
-
-        const total = carrito.obtenerTotal().toFixed(2);
-        const cantidad = carrito.obtenerCantidadTotal();
-
-        resumen.innerHTML = `
-          <div class="modal__resumen-fila">
-            <span>Productos (${cantidad})</span><span>$${total}</span>
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+      <div class="footer__top">
+        <div>
+          <a href="../index.html" class="footer__brand">
+            Trendy<em style="font-style: italic; color: var(--rozy)">Shop</em>
+          </a>
+          <p>Boutique femenina de prendas atemporales. Hecho con calma, pensado para durar.</p>
+        </div>
+        <div class="footer__cols">
+          <div class="footer__col">
+            <b>Tienda</b>
+            <a href="../catalogo/index.html">Catálogo</a>
+            <a href="../quienes-somos/index.html">Quiénes Somos</a>
           </div>
-          <div class="modal__resumen-total">
-            <span>Total</span><span>$${total}</span>
+          <div class="footer__col">
+            <b>Marca</b>
+            <a href="../contactanos/index.html">Contacto</a>
+            <a href="#">Envíos</a>
           </div>
-        `;
-        modal.classList.add("modal-overlay--visible");
-      });
+        </div>
+      </div>
+      <div class="footer__legal">© 2026 TrendyShop · Todos los derechos reservados</div>
+    </footer>
 
-      btnCancelar.addEventListener("click", () => {
-        modal.classList.remove("modal-overlay--visible");
-      });
-
-      btnConfirmar.addEventListener("click", () => {
-        const carrito = obtenerInstanciaCarrito();
-        carrito.vaciarCarrito();
-        modal.classList.remove("modal-overlay--visible");
-        import("../js/ui.js").then(({ renderCarrito, mostrarToast }) => {
-          renderCarrito(carrito);
-          mostrarToast("¡Compra realizada con éxito! Gracias por tu pedido.", "exito");
-        });
-      });
-
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) modal.classList.remove("modal-overlay--visible");
-      });
-    });
-  </script>
-
-</body>
+    <script type="module" src="../js/carrito-page.js"></script>
+  </body>
 </html>
