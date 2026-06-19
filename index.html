@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TrendyShop · Boutique femenina</title>
+
+    <!-- Tipografías de marca. POR QUÉ con preconnect: acelera la conexión al
+       servidor de fuentes antes de descargar el CSS de @font-face. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Noto+Serif+Display:ital,opsz,wght@0,10..72,400;0,10..72,500;1,10..72,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Estilos globales (tokens + componentes). -->
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- Si el usuario tiene JS desactivado, mostramos todo (sin animación). -->
+    <noscript
+      ><style>
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      </style></noscript
+    >
+  </head>
+  <body>
+    <!-- ═══ NAV (compartida) ═══ -->
+    <header class="nav">
+      <div class="logo">Trendy<em>Shop</em></div>
+      <nav class="nav__links">
+        <a href="#coleccion">Colección</a>
+        <a href="#coleccion">Novedades</a>
+        <a href="#nosotras">Nosotras</a>
+        <a href="./quienes-somos/index.html">Quienes Somos</a>
+        <div class="bag">Bolsa <span class="bag__count">0</span></div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero-a">
+        <!-- Capa de profundidad: formas difuminadas que flotan despacio. -->
+        <div class="blob blob--1"></div>
+        <div class="blob blob--2"></div>
+
+        <div class="hero-a__inner">
+          <div class="hero-a__text">
+            <div class="eyebrow">Colección Otoño · 2026</div>
+            <h1 class="hero__title" style="margin-top: var(--s3)">
+              Vestir lo<br /><em>esencial</em>, con alma.
+            </h1>
+            <p class="hero__lead">
+              Prendas de tejidos nobles, cortes atemporales y un acabado pensado
+              para acompañarte temporada tras temporada.
+            </p>
+            <div class="hero__cta">
+              <a href="#coleccion" class="btn btn--light">Explorar colección</a>
+              <a href="#coleccion" class="btn btn--ghost-light">Ver lookbook</a>
+            </div>
+          </div>
+
+          <!-- Tarjeta flotante: data-tilt activa la inclinación 3D con el cursor. -->
+          <div class="hero-a__media">
+            <div class="float-card" data-tilt>
+              <div class="float-card__img ph">
+                <span class="ph__cap">foto · look completo</span>
+              </div>
+              <div class="float-badge">Vestido Toscana</div>
+              <div class="float-price">$289.000</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="coleccion" class="section">
+        <div class="head-row reveal">
+          <div>
+            <div class="eyebrow">Selección destacada</div>
+            <!-- BRILLO tras "deseado": .glow dibuja un resplandor radial detrás. -->
+            <h2 class="section__title" style="margin-top: var(--s2)">
+              Lo más <span class="glow"><span>deseado</span></span>
+            </h2>
+          </div>
+          <span class="hint">desliza →</span>
+        </div>
+        <!-- Las tarjetas se inyectan desde JS (datos centralizados → escalable). -->
+        <div class="rail reveal" id="rail"></div>
+
+        <!-- Editorial split -->
+        <div class="editorial reveal">
+          <div class="editorial__img ph ph--rozy">
+            <span class="ph__cap">foto · editorial taller</span>
+          </div>
+          <div class="editorial__text">
+            <div class="eyebrow">Hecho para durar</div>
+            <h2 class="section__title">Menos prendas,<br />mejores prendas.</h2>
+            <p>
+              Cada pieza se produce en series cortas, con tejidos seleccionados
+              y confección cuidada. Calidad que se siente y se queda.
+            </p>
+            <div class="stats">
+              <div>
+                <div class="stat__num">120+</div>
+                <div class="stat__label">piezas únicas</div>
+              </div>
+              <div>
+                <div class="stat__num">100%</div>
+                <div class="stat__label">tejidos nobles</div>
+              </div>
+              <div>
+                <div class="stat__num">48h</div>
+                <div class="stat__label">envío exprés</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ═══ NOSOTRAS · fundadoras ═══ -->
+    <section id="nosotras" class="team">
+      <div class="wrap">
+        <div class="team__head">
+          <div class="eyebrow">Quiénes somos</div>
+          <h2 class="section__title" style="margin-top: var(--s2)">
+            El equipo detrás de TrendyShop
+          </h2>
+        </div>
+        <div class="team__grid reveal">
+          <div class="member" data-tilt>
+            <div class="member__avatar"><span>M</span></div>
+            <div class="member__name">María Góngora</div>
+            <div class="member__role">Desarrolladora Frontend</div>
+          </div>
+          <div class="member" data-tilt>
+            <div class="member__avatar"><span>C</span></div>
+            <div class="member__name">Carol Sepúlveda</div>
+            <div class="member__role">Desarrolladora Backend</div>
+          </div>
+          <div class="member" data-tilt>
+            <div class="member__avatar"><span>A</span></div>
+            <div class="member__name">Andrés Escobar</div>
+            <div class="member__role">Desarrollo Full Stack</div>
+          </div>
+          <div class="member" data-tilt>
+            <div class="member__avatar"><span>Y</span></div>
+            <div class="member__name">Yosed Sánchez</div>
+            <div class="member__role">Desarrollador Full Stack</div>
+          </div>
+          <div class="member" data-tilt>
+            <div class="member__avatar"><span>J</span></div>
+            <div class="member__name">Julián Malpica</div>
+            <div class="member__role">SCRUM Master</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FOOTER (compartido) ═══ -->
+    <footer class="footer">
+      <div class="footer__top">
+        <div>
+          <div class="footer__brand">
+            Trendy<em style="font-style: italic; color: var(--rozy)">Shop</em>
+          </div>
+          <p>
+            Boutique femenina de prendas atemporales. Hecho con calma, pensado
+            para durar.
+          </p>
+        </div>
+        <div class="footer__cols">
+          <div class="footer__col">
+            <b>Tienda</b><a href="#coleccion">Colección</a
+            ><a href="#coleccion">Novedades</a><a href="#coleccion">Lookbook</a>
+          </div>
+          <div class="footer__col">
+            <b>Marca</b><a href="#nosotras">Nosotras</a><a href="#">Contacto</a
+            ><a href="#">Envíos</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__legal">
+        © 2026 TrendyShop · Todos los derechos reservados
+      </div>
+    </footer>
+
+    <!-- ═══ MODAL de producto (oculto con [hidden]) ═══ -->
+    <div class="modal" id="modal" hidden>
+      <div class="modal__card">
+        <button class="modal__close" id="modalClose" aria-label="Cerrar">
+          ×
+        </button>
+        <div class="modal__img ph ph--oak">
+          <span class="ph__cap" id="mCap"></span>
+        </div>
+        <div class="modal__body">
+          <div class="modal__tag" id="mTag"></div>
+          <h3 class="modal__name" id="mName"></h3>
+          <div class="modal__price" id="mPrice"></div>
+          <p class="modal__desc" id="mDesc"></p>
+          <div class="modal__fabric" id="mFabric"></div>
+          <div class="modal__sizes" id="mSizes"></div>
+          <div class="modal__actions">
+            <button class="btn btn--solid">Añadir a la bolsa</button>
+            <button class="btn btn--ghost" id="goCatalogo">
+              Ver en el catálogo →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

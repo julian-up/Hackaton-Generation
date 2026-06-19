@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TrendyShop · Quiénes Somos</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Noto+Serif+Display:ital,opsz,wght@0,10..72,400;0,10..72,500;1,10..72,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .about-hero {
+        position: relative;
+        overflow: hidden;
+        background: var(--rojo);
+        color: var(--linen);
+        text-align: center;
+        padding: clamp(4rem, 8vw, 7rem) 0;
+      }
+      .about-hero .hero__lead {
+        margin-inline: auto;
+      }
+
+      .story {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(2rem, 5vw, 4rem);
+        align-items: center;
+        margin-bottom: var(--s8);
+      }
+      .story:last-child {
+        margin-bottom: 0;
+      }
+      .story--reverse {
+        flex-direction: row-reverse;
+      }
+      .story__img {
+        flex: 1 1 320px;
+        min-width: 280px;
+        aspect-ratio: 4/3;
+        border-radius: var(--r-lg);
+      }
+      .story__text {
+        flex: 1 1 340px;
+        min-width: 300px;
+      }
+      .story__text h3 {
+        font-family: var(--serif);
+        font-size: var(--t-h2);
+        color: var(--rojo);
+        margin-bottom: var(--s3);
+      }
+      .story__text p {
+        font-size: var(--t-body);
+        line-height: 1.7;
+        opacity: 0.82;
+      }
+      .story__badge {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 0.35rem 0.85rem;
+        border-radius: var(--r-pill);
+        margin-bottom: var(--s3);
+      }
+      .story__badge--dark {
+        background: var(--rojo);
+        color: var(--linen);
+      }
+      .story__badge--warn {
+        background: var(--rozy);
+        color: var(--rojo);
+      }
+      .story__badge--ok {
+        background: rgba(46, 125, 50, 0.12);
+        color: #2e7d32;
+      }
+
+      .story__alert {
+        padding: var(--s3);
+        border-radius: var(--r);
+        font-size: 0.92rem;
+        line-height: 1.6;
+        margin-top: var(--s3);
+      }
+      .story__alert--warn {
+        background: rgba(199, 164, 158, 0.18);
+        border-left: 3px solid var(--rozy);
+      }
+      .story__alert--ok {
+        background: rgba(46, 125, 50, 0.06);
+        border-left: 3px solid #2e7d32;
+      }
+      .story__list {
+        list-style: none;
+        padding: 0;
+        margin-top: var(--s3);
+      }
+      .story__list li {
+        padding: 0.4rem 0;
+        font-size: 0.95rem;
+      }
+      .story__list li::before {
+        content: "\2713";
+        color: var(--rozy);
+        font-weight: 700;
+        margin-right: 0.6rem;
+      }
+
+      .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--s4);
+        perspective: 1200px;
+      }
+      .value-item {
+        background: var(--cream);
+        border-radius: var(--r-lg);
+        padding: var(--s4) var(--s3);
+        text-align: center;
+        border: 1px solid rgba(77, 15, 20, 0.06);
+        transform-style: preserve-3d;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .value-item:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow);
+      }
+      .value-item h4 {
+        font-family: var(--serif);
+        font-size: 1.15rem;
+        color: var(--rojo);
+        margin-bottom: 0.5rem;
+      }
+      .value-item p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        opacity: 0.75;
+      }
+      .value-sym {
+        font-family: var(--serif);
+        font-size: 1.8rem;
+        color: var(--rozy);
+        margin-bottom: var(--s2);
+      }
+
+      .about-stats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: clamp(2rem, 5vw, 4rem);
+        text-align: center;
+      }
+      .about-stats > div {
+        flex: 0 1 180px;
+      }
+
+      .about-cta {
+        text-align: center;
+        padding: clamp(3rem, 6vw, 5rem) 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ═══ NAV ═══ -->
+    <header class="nav">
+      <a href="../index.html" class="logo" style="text-decoration: none"
+        >Trendy<em>Shop</em></a
+      >
+      <nav class="nav__links">
+        <a href="../index.html#coleccion">Colección</a>
+        <a href="../index.html#coleccion">Novedades</a>
+        <a href="#equipo">Nosotras</a>
+        <a href="../index.html" class="bag"
+          >Bolsa <span class="bag__count">0</span></a
+        >
+      </nav>
+    </header>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="about-hero">
+      <div class="blob blob--1"></div>
+      <div class="blob blob--2"></div>
+      <div class="wrap" style="position: relative">
+        <div class="eyebrow">Nuestra historia</div>
+        <h1 class="hero__title" style="margin-top: var(--s3)">
+          Quiénes hacen<br /><em>TrendyShop</em>
+        </h1>
+        <p class="hero__lead">
+          Somos un equipo de desarrolladores full stack que cree en la moda
+          accesible, la transparencia y la tecnología bien hecha.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ HISTORIA ═══ -->
+    <section class="section">
+      <div class="wrap">
+        <div class="head-row reveal">
+          <div>
+            <div class="eyebrow">Nuestra trayectoria</div>
+            <h2 class="section__title" style="margin-top: var(--s2)">
+              De la idea a la
+              <span class="glow"><span>realidad</span></span>
+            </h2>
+          </div>
+        </div>
+
+        <!-- El Comienzo -->
+        <div class="story reveal">
+          <div class="story__img ph ph--rozy">
+            <span class="ph__cap">foto · primeras oficinas</span>
+          </div>
+          <div class="story__text">
+            <span class="story__badge story__badge--dark">2018</span>
+            <h3>El Comienzo</h3>
+            <p>
+              TrendyShop nació con una visión clara: democratizar la moda y
+              hacer que las últimas tendencias fueran accesibles para todos. Lo
+              que comenzó como un emprendimiento familiar creció hasta
+              convertirse en una de las plataformas más prometedoras del mercado
+              colombiano.
+            </p>
+            <ul class="story__list">
+              <li>5 tiendas físicas en operación</li>
+              <li>10,000+ clientes satisfechos</li>
+              <li>Envíos rápidos a todo el país</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- La Crisis -->
+        <div class="story story--reverse reveal">
+          <div class="story__img ph ph--oak">
+            <span class="ph__cap">foto · momentos difíciles</span>
+          </div>
+          <div class="story__text">
+            <span class="story__badge story__badge--warn">2025</span>
+            <h3>La Crisis</h3>
+            <p>
+              La competencia global de gigantes como Mercado Libre, Shein y Temu
+              nos obligó a replantearnos todo. Los tiempos de envío aumentaron,
+              la satisfacción cayó y perdimos la confianza que tanto costó
+              construir.
+            </p>
+            <div class="story__alert story__alert--warn">
+              <strong>Reconocemos que fallamos.</strong> Nuestros clientes
+              merecían más y no estuvimos a la altura de sus expectativas.
+            </div>
+          </div>
+        </div>
+
+        <!-- Recuperación -->
+        <div class="story reveal">
+          <div class="story__img ph ph--rozy">
+            <span class="ph__cap">foto · equipo actual</span>
+          </div>
+          <div class="story__text">
+            <span class="story__badge story__badge--ok">2026</span>
+            <h3>Nuestra Recuperación</h3>
+            <p>
+              Hoy renacemos con un compromiso renovado. Invertimos en tecnología
+              de última generación, reestructuramos nuestra cadena logística y
+              pusimos al cliente en el centro de cada decisión.
+            </p>
+            <div class="story__alert story__alert--ok">
+              <strong>Nuevo compromiso:</strong> transparencia total, envíos en
+              48 horas y satisfacción garantizada.
+            </div>
+            <a
+              href="../index.html#coleccion"
+              class="btn btn--solid"
+              style="margin-top: var(--s4)"
+              >Explorar colección</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ VALORES ═══ -->
+    <section class="section section--linen">
+      <div class="wrap">
+        <div class="head-row reveal">
+          <div>
+            <div class="eyebrow">Lo que nos define</div>
+            <h2 class="section__title" style="margin-top: var(--s2)">
+              Nuestros valores
+            </h2>
+          </div>
+        </div>
+        <div class="values-grid reveal">
+          <div class="value-item" data-tilt>
+            <div class="value-sym">&diams;</div>
+            <h4>Transparencia</h4>
+            <p>
+              Cada precio, cada política y cada proceso es claro y visible para
+              nuestros clientes.
+            </p>
+          </div>
+          <div class="value-item" data-tilt>
+            <div class="value-sym">&hearts;</div>
+            <h4>Seguridad</h4>
+            <p>
+              Tu información protegida con los más altos estándares de
+              encriptación digital.
+            </p>
+          </div>
+          <div class="value-item" data-tilt>
+            <div class="value-sym">&starf;</div>
+            <h4>Calidad</h4>
+            <p>
+              Cada producto seleccionado con exigentes estándares para
+              garantizar tu satisfacción.
+            </p>
+          </div>
+          <div class="value-item" data-tilt>
+            <div class="value-sym">&raquo;</div>
+            <h4>Velocidad</h4>
+            <p>
+              Envíos en 48 horas o menos. Porque sabemos que la espera no es una
+              opción.
+            </p>
+          </div>
+          <div class="value-item" data-tilt>
+            <div class="value-sym">&phone;</div>
+            <h4>Atención</h4>
+            <p>
+              Soporte humano 24/7. Cada pregunta, cada queja, cada sugerencia
+              importa.
+            </p>
+          </div>
+          <div class="value-item" data-tilt>
+            <div class="value-sym">&infin;</div>
+            <h4>Confianza</h4>
+            <p>
+              Reconstruimos la confianza con hechos, no con palabras. Cada
+              pedido es una promesa cumplida.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ EQUIPO ═══ -->
+    <section id="equipo" class="team">
+      <div class="wrap">
+        <div class="team__head">
+          <div class="eyebrow">El equipo</div>
+          <h2 class="section__title" style="margin-top: var(--s2)">
+            Desarrolladores Full Stack
+          </h2>
+        </div>
+        <div class="team__grid reveal">
+          <div class="member" data-tilt>
+            <div class="member__avatar"><span>M</span></div>
+            <div class="member__name">María Góngora</div>
+            <div class="member__role">Desarrolladora Frontend</div>
+          </div>
+          <div class="member" data-tilt>
+            <div class="member__avatar"><span>C</span></div>
+            <div class="member__name">Carol Sepúlveda</div>
+            <div class="member__role">Desarrolladora Backend</div>
+          </div>
+          <div class="member" data-tilt>
+            <div class="member__avatar"><span>A</span></div>
+            <div class="member__name">Andrés Escobar</div>
+            <div class="member__role">Desarrollo Full Stack</div>
+          </div>
+          <div class="member" data-tilt>
+            <div class="member__avatar"><span>Y</span></div>
+            <div class="member__name">Yosed Sánchez</div>
+            <div class="member__role">Desarrollador Full Stack</div>
+          </div>
+          <div class="member" data-tilt>
+            <div class="member__avatar"><span>J</span></div>
+            <div class="member__name">Julián Malpica</div>
+            <div class="member__role">SCRUM Master</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CIFRAS ═══ -->
+    <section class="section">
+      <div class="wrap">
+        <div class="about-stats reveal">
+          <div>
+            <div class="stat__num">5,000+</div>
+            <div class="stat__label">productos disponibles</div>
+          </div>
+          <div>
+            <div class="stat__num">50K+</div>
+            <div class="stat__label">clientes felices</div>
+          </div>
+          <div>
+            <div class="stat__num">100K+</div>
+            <div class="stat__label">envíos completados</div>
+          </div>
+          <div>
+            <div class="stat__num">98%</div>
+            <div class="stat__label">satisfacción</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CTA ═══ -->
+    <section class="about-cta">
+      <div class="wrap reveal">
+        <div class="eyebrow">¿Lista para descubrir?</div>
+        <h2
+          class="section__title"
+          style="margin-top: var(--s2); margin-bottom: var(--s4)"
+        >
+          Explora nuestra colección
+        </h2>
+        <a href="../index.html#coleccion" class="btn btn--solid"
+          >Ver colección</a
+        >
+      </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+      <div class="footer__top">
+        <div>
+          <div class="footer__brand">
+            Trendy<em style="font-style: italic; color: var(--rozy)">Shop</em>
+          </div>
+          <p>
+            Boutique femenina de prendas atemporales. Hecho con calma, pensado
+            para durar.
+          </p>
+        </div>
+        <div class="footer__cols">
+          <div class="footer__col">
+            <b>Tienda</b>
+            <a href="../index.html#coleccion">Colección</a>
+            <a href="../index.html#coleccion">Novedades</a>
+            <a href="../index.html#coleccion">Lookbook</a>
+          </div>
+          <div class="footer__col">
+            <b>Marca</b>
+            <a href="#equipo">Nosotras</a>
+            <a href="#">Contacto</a>
+            <a href="#">Envíos</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__legal">
+        &copy; 2026 TrendyShop &middot; Todos los derechos reservados
+      </div>
+    </footer>
+
+    <script type="module" src="../js/about.js"></script>
+  </body>
+</html>
