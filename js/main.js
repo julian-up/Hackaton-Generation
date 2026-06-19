@@ -79,7 +79,6 @@ $("#btnAddToBag").addEventListener("click", () => {
   });
 
   closeModal();
-  showToast(currentProduct.name + " (talla " + size + ") añadido a la bolsa");
 });
 
 $("#modalClose").addEventListener("click", closeModal);
