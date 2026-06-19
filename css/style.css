@@ -989,3 +989,172 @@ button {
     display: none;
   }
 }
+/* ═══════════════════════════════════════════════════════
+                        CONTACTANOS
+═══════════════════════════════════════════════════════ */
+ 
+/* ── Hero / Header ─────────────────────────────────── */
+header {
+  position: relative;
+  overflow: hidden;
+  background: var(--rojo);
+  color: var(--linen);
+  text-align: center;
+  padding: clamp(3rem, 7vw, 6rem) clamp(1rem, 5vw, 4rem);
+  animation: riseIn 0.7s ease both;
+}
+ 
+header::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: 8%;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--rozy), transparent 70%);
+  opacity: 0.45;
+  filter: blur(8px);
+  animation: flota 9s ease-in-out infinite;
+  pointer-events: none;
+}
+ 
+header::after {
+  content: "";
+  position: absolute;
+  bottom: -100px;
+  left: -40px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--pale-oak), transparent 70%);
+  opacity: 0.3;
+  filter: blur(6px);
+  animation: flotaLento 11s ease-in-out infinite;
+  pointer-events: none;
+}
+ 
+header h1 {
+  position: relative;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--t-hero);
+  line-height: 1.02;
+  letter-spacing: -0.5px;
+  color: var(--linen);
+}
+ 
+header h1 em {
+  font-style: italic;
+  color: var(--rozy);
+}
+ 
+/* ── Main / sección de contacto ────────────────────── */
+main {
+  background: linear-gradient(180deg, var(--cream), var(--linen));
+  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 5vw, 4rem);
+}
+ 
+main section {
+  max-width: 640px;
+  margin-inline: auto;
+}
+ 
+main section h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--t-h2);
+  color: var(--rojo);
+  line-height: 1.05;
+  margin-bottom: var(--s6);
+  text-align: center;
+}
+ 
+/* ── Formulario ─────────────────────────────────────── */
+#form-contacto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  background: var(--cream);
+  border-radius: var(--r-lg);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  box-shadow: var(--shadow);
+}
+ 
+#form-contacto label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rojo);
+  margin-bottom: -0.5rem; /* acorta el gap visual entre label e input */
+}
+ 
+#form-contacto input,
+#form-contacto textarea {
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  color: var(--ink);
+  background: var(--linen);
+  border: 1px solid rgba(77, 15, 20, 0.2);
+  border-radius: var(--r);
+  padding: 0.85rem 1.1rem;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  resize: vertical;
+}
+ 
+#form-contacto input::placeholder,
+#form-contacto textarea::placeholder {
+  color: var(--pale-oak);
+}
+ 
+#form-contacto input:focus,
+#form-contacto textarea:focus {
+  border-color: var(--rojo);
+  box-shadow: 0 0 0 3px rgba(77, 15, 20, 0.1);
+}
+ 
+/* ── Botón de envío ─────────────────────────────────── */
+#form-contacto button[type="submit"] {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 2.4rem;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  font-weight: 600;
+  font-size: var(--t-body);
+  background: var(--rojo);
+  color: var(--linen);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+ 
+#form-contacto button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+ 
+/* ── Mensaje de estado ──────────────────────────────── */
+#form-status {
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--rojo);
+  opacity: 0.85;
+  min-height: 1.5rem;
+}
+ 
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 560px) {
+  #form-contacto button[type="submit"] {
+    align-self: stretch;
+  }
+}
